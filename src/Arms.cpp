@@ -10,14 +10,14 @@
 
 class Arms {
 	private:
-		Jaguar *m_leftArmsMotor;
-		Jaguar *m_rightArmsMotor;
+		VictorSP *m_leftArmsMotor;
+		VictorSP *m_rightArmsMotor;
 		float *m_armAngle;
 
 	public:
 		Arms::Arms() {
-			m_leftArmsMotor = new Jaguar(ARMS_LEFT_MOTOR_CHANNEL);
-			m_rightArmsMotor = new Jaguar(ARMS_RIGHT_MOTOR_CHANNEL);
+			m_leftArmsMotor = new VictorSP(ARMS_LEFT_MOTOR_CHANNEL);
+			m_rightArmsMotor = new VictorSP(ARMS_RIGHT_MOTOR_CHANNEL);
 			m_armAngle = 0;
 		}
 		Arms::~Arms() {
