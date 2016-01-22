@@ -1,29 +1,34 @@
 #include "WPILib.h"
 #include "config.h"
+#include "Shooter.h"
+#include "Arms.h"
 
 class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
+	RobotDrive *m_drive;
+	Joystick *m_joy1;
+	Joystick *m_joy2;
+
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
-
-	Joystick *m_joy1;
-	RobotDrive *m_drive;
-
 public:
 
 	Robot() {
-	m_joy1 = new Joystick(0);
-	m_drive = new RobotDrive(RIGHT_REAR_MOTOR_CHANNEL, LEFT_REAR_MOTOR_CHANNEL);
+		m_drive = new RobotDrive(/*Needs motor channels */);
+		m_joy1 = new Joystick(0);
+		m_joy2 = new Joystick(1);
 	}
 
 	~Robot() {
-
-
+		delete m_drive;
+		delete m_joy1;
+		delete m_joy2;
 	}
+
 	void RobotInit()
 	{
 		chooser = new SendableChooser();
@@ -71,7 +76,7 @@ public:
 
 	void TeleopPeriodic()
 	{
-		m_drive->ArcadeDrive(m_joy1);
+
 	}
 
 	void TestPeriodic()
