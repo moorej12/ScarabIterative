@@ -100,4 +100,10 @@ class Shooter {
 			//-Piston Extended == False
 			//-Touch Sensor == False
 		}
+		//Returns a bool representing whether or not the shooter is able to shoot,
+		//based on whether the ball is loaded.
+		bool Shooter::CanShoot(/*not implemented*/){
+		//To return true:
+		//Touch Sensor == True
+		}
 };
