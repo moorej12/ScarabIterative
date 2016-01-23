@@ -67,11 +67,6 @@
 			return m_ballLoaded->Get();
 		}
 
-		float Shooter::Constrain(float var, float min, float max) {
-			// Needlessly complicated ternary (but just so quick to write)
-			return (min < var && var < max ? var : (var < min ? min : max));
-		}
-
 		//Slowly rotates the gripper wheels to eject the ball.
 		//Should only be called when the sensor shows the ball is loaded.
 		void Shooter::Unload(){

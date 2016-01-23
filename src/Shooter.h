@@ -26,7 +26,6 @@ class Shooter {
 		void Shoot();
 		void Idle();
 		bool BallLoaded();
-		float Constrain(int var, int min, int max);
 		void Unload();
 		bool CanLoad();
 		bool CanShoot();
