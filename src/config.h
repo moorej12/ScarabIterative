@@ -20,6 +20,10 @@
 
 //Sensor Channels Digital I/O
 #define SHOOTER_BALL_LOADED_SENSOR_CHANNEL 0
+#define ARMS_ENCODER_CHANNEL_A 1
+#define ARMS_ENCODER_CHANNEL_B 2
+#define ARMS_ENCODER_INDEX_CHANNEL 3
+
 
 //Joystick
 	//Shooter buttons

@@ -10,9 +10,14 @@
 
 class Arms {
 	private:
-		Jaguar *m_leftArmsMotor;
-		Jaguar *m_rightArmsMotor;
+		Victor *m_leftArmsMotor;
+		Victor *m_rightArmsMotor;
+		//make sure to update the arm angle every cycle...
 		float *m_armAngle;
+		Encoder *m_leftEncoder;
+		Encoder *m_rightEncoder;
+		float *m_targetArmsAngle;
+
 
 		//Checks if the arms are at the minimum possible angle.
 		//If true, it doesn’t allow further movement in that direction.
@@ -31,8 +36,8 @@ class Arms {
 
 	public:
 		Arms::Arms() {
-			m_leftArmsMotor = new Jaguar(LEFT_ARMS_MOTOR_CHANNEL);
-			m_rightArmsMotor = new Jaguar(RIGHT_ARMS_MOTOR_CHANNEL);
+			m_leftArmsMotor = new Victor(LEFT_ARMS_MOTOR_CHANNEL);
+			m_rightArmsMotor = new Victor(RIGHT_ARMS_MOTOR_CHANNEL);
 			m_armAngle = 0;
 		}
 		Arms::~Arms() {
