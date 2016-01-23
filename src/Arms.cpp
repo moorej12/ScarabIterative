@@ -31,8 +31,8 @@ class Arms {
 
 	public:
 		Arms::Arms() {
-			m_leftArmsMotor = new Jaguar(ARMS_LEFT_MOTOR_CHANNEL);
-			m_rightArmsMotor = new Jaguar(ARMS_RIGHT_MOTOR_CHANNEL);
+			m_leftArmsMotor = new Jaguar(LEFT_ARMS_MOTOR_CHANNEL);
+			m_rightArmsMotor = new Jaguar(RIGHT_ARMS_MOTOR_CHANNEL);
 			m_armAngle = 0;
 		}
 		Arms::~Arms() {
