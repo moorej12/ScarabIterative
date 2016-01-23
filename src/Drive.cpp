@@ -15,7 +15,10 @@ class Drive {
 
 	public:
 		Drive() {
-			m_drive = new RobotDrive(/*Needs motor channels */);
+			m_drive = new RobotDrive(DRIVE_MOTOR_LEFT_FRONT_CHANNEL,
+					DRIVE_MOTOR_LEFT_REAR_CHANNEL,
+					DRIVE_MOTOR_RIGHT_FRONT_CHANNEL,
+					DRIVE_MOTOR_RIGHT_REAR_CHANNEL);
 			m_joy1 = new Joystick(0);
 		}
 
@@ -27,6 +30,8 @@ class Drive {
 		//(+) for forwards and (-) for backwards; sets the current
 		//velocity for the robot
 		void RobotMove() {
+
+			m_drive->ArcadeDrive(m_joy1, true);
 
 		}
 

@@ -10,21 +10,14 @@
 
 class Arms {
 	private:
-<<<<<<< HEAD
-		Victor *m_leftArmsMotor;
-		Victor *m_rightArmsMotor;
+
 		//make sure to update the arm angle every cycle...
 		float *m_armAngle;
 		Encoder *m_leftEncoder;
 		Encoder *m_rightEncoder;
 		float *m_targetArmsAngle;
-
-=======
 		VictorSP *m_leftArmsMotor;
 		VictorSP *m_rightArmsMotor;
-		float *m_armAngle;
-		float *m_setArmAngle;
->>>>>>> 8ae0bf2b774e67d41f26dbdb6956a1f440ab7fab
 
 		//Checks if the arms are at the minimum possible angle.
 		//If true, it doesn�t allow further movement in that direction.
