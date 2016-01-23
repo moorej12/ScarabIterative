@@ -7,8 +7,7 @@ class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
-	RobotDrive *m_drive;
-	Joystick *m_joy1;
+
 	Joystick *m_joy2;
 
 	SendableChooser *chooser;
@@ -18,14 +17,12 @@ private:
 public:
 
 	Robot() {
-		m_drive = new RobotDrive(/*Needs motor channels */);
-		m_joy1 = new Joystick(0);
+
 		m_joy2 = new Joystick(1);
 	}
 
 	~Robot() {
-		delete m_drive;
-		delete m_joy1;
+
 		delete m_joy2;
 	}
 
