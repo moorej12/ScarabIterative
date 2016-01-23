@@ -1,6 +1,6 @@
 #include "WPILib.h"
 #include "config.h"
-#include "Shooter.h"
+//#include "Shooter.h"
 #include "Arms.h"
 
 class Robot: public IterativeRobot
@@ -18,7 +18,7 @@ private:
 public:
 
 	Robot() {
-		m_drive = new RobotDrive(/*Needs motor channels */);
+		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
 	}
