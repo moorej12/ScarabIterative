@@ -7,9 +7,11 @@ class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
+
 	RobotDrive *m_drive;
-	Joystick *m_joy1;
+
 	Joystick *m_joy2;
+	Joystick *m_joy1;
 
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
@@ -24,8 +26,7 @@ public:
 	}
 
 	~Robot() {
-		delete m_drive;
-		delete m_joy1;
+
 		delete m_joy2;
 	}
 
