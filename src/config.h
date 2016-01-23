@@ -8,6 +8,9 @@
 #ifndef SRC_CONFIG_H_
 #define SRC_CONFIG_H_
 
+//Shooter Speeds
+#define SHOOTER_IDLE_SPEED
+
 //Motor Channels
 #define ARMS_LEFT_MOTOR_CHANNEL 0
 #define ARMS_RIGHT_MOTOR_CHANNEL 1
