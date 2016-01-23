@@ -14,10 +14,25 @@ class Arms {
 		Jaguar *m_rightArmsMotor;
 		float *m_armAngle;
 
+		//Checks if the arms are at the minimum possible angle.
+		//If true, it doesn’t allow further movement in that direction.
+
+		bool IsLowestPosition() {
+			return false;
+		}
+
+		//Checks if the arms are at the maximum possible angle.
+		//If true, it doesn’t allow further movement in that direction.
+
+		bool IsHighestPosition() {
+			return false;
+		}
+
+
 	public:
 		Arms::Arms() {
-			m_leftArmsMotor = new Jaguar(ARMS_LEFT_MOTOR_CHANNEL);
-			m_rightArmsMotor = new Jaguar(ARMS_RIGHT_MOTOR_CHANNEL);
+			m_leftArmsMotor = new Jaguar(LEFT_ARMS_MOTOR_CHANNEL);
+			m_rightArmsMotor = new Jaguar(RIGHT_ARMS_MOTOR_CHANNEL);
 			m_armAngle = 0;
 		}
 		Arms::~Arms() {
@@ -39,4 +54,6 @@ class Arms {
 		float GetPosition() {
 			return m_armAngle;
 		}
+
+
 };
