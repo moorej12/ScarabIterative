@@ -1,17 +1,19 @@
 #include "WPILib.h"
 #include "config.h"
-//#include "Shooter.h"
 #include "Arms.h"
+#include "Drive.h"
 
 class Robot: public IterativeRobot
 {
 private:
 	LiveWindow *lw = LiveWindow::GetInstance();
 
-	RobotDrive *m_drive;
+	//RobotDrive *m_drive;
 
 	Joystick *m_joy2;
 	Joystick *m_joy1;
+
+	Drive *m_drive;
 
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
@@ -20,9 +22,9 @@ private:
 public:
 
 	Robot() {
-		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
-		m_joy1 = new Joystick(0);
-		m_joy2 = new Joystick(1);
+//		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
+//		m_joy1 = new Joystick(0);
+//		m_joy2 = new Joystick(1);
 	}
 
 	~Robot() {
