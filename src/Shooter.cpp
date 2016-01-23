@@ -6,6 +6,7 @@
  */
 
 #include "Shooter.h"
+#include "config.h"
 
 class Shooter {
 	private:
@@ -18,9 +19,9 @@ class Shooter {
 		/**
 		* Makes a shooter with a left motor channel, a right one, the speed to launch at, and the speed for retracting (sucking up) a ball into the launcher
 		*/
-		Shooter(int leftChannel, int rightChannel, int fSpeed, int rSpeed) {
-			m_leftMotorController = new Jaguar(leftChannel);
-			m_leftMotorController = new Jaguar(rightChannel);
+		Shooter(int fSpeed, int rSpeed) {
+			m_leftMotorController = new Jaguar(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
+			m_leftMotorController = new Jaguar(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 			m_fSpeed = Constrain(fSpeed, -1, 1);
 			m_rSpeed = Constrain(rSpeed, -1, 1);
 			m_iSpeed = 0;
