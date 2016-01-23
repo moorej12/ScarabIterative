@@ -7,21 +7,10 @@
 
 #include "Shooter.h"
 #include "config.h"
-
-class Shooter {
-	private:
-		VictorSP *m_leftMotorController;
-		VictorSP *m_rightMotorController;
-
-		float *m_targetAngle;
-		float *m_armSpeed;
-		DigitalInput *m_ballLoaded;
-
-	public:
 		/**
 		* Makes a shooter
 		*/
-		Shooter() {
+		Shooter::Shooter() {
 			m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 			m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 			m_targetAngle = 0;
@@ -32,7 +21,7 @@ class Shooter {
 		}
 
 
-		~Shooter() {
+		Shooter::~Shooter() {
 			delete m_ballLoaded;
 			delete m_targetAngle;
 		}
@@ -40,25 +29,25 @@ class Shooter {
 		/**
 		* Yo holmes - This is how you slurp up the dodgeballs
 		*/
-		void Load() {
+		void Shooter::Load() {
 			if(BallLoaded == false){
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 			}
 		}
 
-		void SetAngle(m_targetAngle) {
+		void Shooter::SetAngle(float m_targetAngle) {
 
 		}
 
-		void AdjustPosition(m_armSpeed) {
+		void Shooter::AdjustPosition(float m_armSpeed) {
 
 		}
 
 		/**
 		* Hey pal - This is how you throw the ball like a pro
 		*/
-		void Shoot() {
+		void Shooter::Shoot() {
 			if(BallLoaded == true) {
 			m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 			m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
@@ -68,24 +57,24 @@ class Shooter {
 		/**
 		* You clearly did something, and now you wants to undo's it
 		*/
-		void Idle() {
+		void Shooter::Idle() {
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 			m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
 		}
 
 		//Tells whether the ball is loaded
-		bool BallLoaded() {
+		bool Shooter::BallLoaded() {
 			return m_ballLoaded->Get();
 		}
 
-		int Constrain(int var, int min, int max) {
+		float Shooter::Constrain(float var, float min, float max) {
 			// Needlessly complicated ternary (but just so quick to write)
 			return (min < var && var < max ? var : (var < min ? min : max));
 		}
 
 		//Slowly rotates the gripper wheels to eject the ball.
 		//Should only be called when the sensor shows the ball is loaded.
-		void Unload(){
+		void Shooter::Unload(){
 			if(BallLoaded == true) {
 
 			}
@@ -93,7 +82,7 @@ class Shooter {
 
 		//returns a bool representing whether or not the shooter is able to load,
 		//based on if the piston is retracted and the ball is loaded.
-		bool CanLoad(/*not implemented*/){
+		bool Shooter::CanLoad(/*not implemented*/){
 			//To return true:
 			//-Piston Extended == False
 			//-Touch Sensor == False
@@ -101,8 +90,7 @@ class Shooter {
 
 		//Returns a bool representing whether or not the shooter is able to shoot,
 		//based on whether the ball is loaded.
-		bool CanShoot(/*not implemented*/){
+		bool Shooter::CanShoot(/*not implemented*/){
 		//To return true:
 		//Touch Sensor == True
 		}
-};

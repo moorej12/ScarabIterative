@@ -19,9 +19,7 @@ Drive::Drive() {
 //(+) for forwards and (-) for backwards; sets the current
 //velocity for the robot
 void Drive::RobotMove() {
-
 	m_drive->ArcadeDrive(m_joy1, true);
-
 }
 
 //put in power to actively stop the movement of the robot

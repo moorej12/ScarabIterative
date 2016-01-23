@@ -25,6 +25,7 @@ public:
 //		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
 //		m_joy1 = new Joystick(0);
 //		m_joy2 = new Joystick(1);
+		m_drive = new Drive();
 	}
 
 	~Robot() {
@@ -79,7 +80,7 @@ public:
 
 	void TeleopPeriodic()
 	{
-
+		m_drive->RobotMove();
 	}
 
 	void TestPeriodic()
