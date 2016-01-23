@@ -1,17 +1,26 @@
 /*
  * config.h
  *
- *  Created on: Jan 16, 2016
- *      Author: James
+ *  Created on: Jan 20, 2016
+ *      Author: Jonathan
  */
 
 #ifndef SRC_CONFIG_H_
 #define SRC_CONFIG_H_
-//note: all motor channels labeled right or left are from the robot's perspective
-#define RIGHT_REAR_MOTOR_CHANNEL 0
-#define RIGHT_FRONT_MOTOR_CHANNEL 1
-#define LEFT_REAR_MOTOR_CHANNEL 2
-#define LEFT_FRONT_MOTOR_CHANNEL 3
+
+//Motor Channels
+LEFT_ARMS_MOTOR_CHANNEL 0
+RIGHT_ARMS_MOTOR_CHANNEL 1
+
+//Sensor Channels
+
+
+//Joystick
+	//Shooter buttons
+
+
+	//Arms buttons
+
 
 
 
