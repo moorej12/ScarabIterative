@@ -15,6 +15,8 @@ class Shooter {
 		float m_rSpeed;
 		float m_fSpeed;
 		float m_iSpeed;
+		float *m_setArmAngle;
+		float *m_armSpeed;
 		DigitalInput *m_ballLoaded;
 	public:
 		/**
@@ -26,6 +28,8 @@ class Shooter {
 			m_fSpeed = Constrain(fSpeed, -1, 1);
 			m_rSpeed = Constrain(rSpeed, -1, 1);
 			m_iSpeed = 0;
+			float m_setArmAngle = 0;
+			float m_armSpeed = 0;
 			m_ballLoaded = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
 
 			m_leftMotorController->SetInverted(true);
@@ -47,6 +51,7 @@ class Shooter {
 
 		~Shooter() {
 			delete m_ballLoaded;
+			delete m_setArmAngle;
 		}
 
 		/**
@@ -57,6 +62,14 @@ class Shooter {
 			m_leftMotorController->Set(m_rSpeed);
 			m_leftMotorController->Set(m_rSpeed);
 			}
+		}
+
+		void SetAngle(m_setArmAngle) {
+
+		}
+
+		void AdjustPosition(m_armSpeed) {
+
 		}
 
 		/**
