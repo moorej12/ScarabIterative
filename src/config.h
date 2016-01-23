@@ -8,6 +8,11 @@
 #ifndef SRC_CONFIG_H_
 #define SRC_CONFIG_H_
 
+//Shooter Speeds
+#define SHOOTER_IDLE_SPEED 0
+#define SHOOTER_SHOOT_SPEED 1
+#define SHOOTER_RETRACT_SPEED -0.25
+
 //Motor Channels PWM
 #define LEFT_ARMS_MOTOR_CHANNEL 0
 #define RIGHT_ARMS_MOTOR_CHANNEL 1
