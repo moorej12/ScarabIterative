@@ -70,4 +70,18 @@ class Shooter {
 			// Needlessly complicated ternary (but just so quick to write)
 			return (min < var && var < max ? var : (var < min ? min : max));
 		}
+		//Slowly rotates the gripper wheels to eject the ball.
+		//Should only be called when the sensor shows the ball is loaded.
+		void Unload(){
+			if(BallLoaded == true) {
+
+			}
+		}
+		//returns a bool representing whether or not the shooter is able to load,
+		//based on if the piston is retracted and the ball is loaded.
+		bool Shooter::CanLoad(/*not implemented*/){
+			//To return true:
+			//-Piston Extended == False
+			//-Touch Sensor == False
+		}
 };
