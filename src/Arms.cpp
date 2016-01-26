@@ -36,22 +36,14 @@ class Arms {
 
 	public:
 		Arms::Arms() {
-<<<<<<< HEAD
 			m_leftArmsMotor = new Victor(LEFT_ARMS_MOTOR_CHANNEL);
 			m_rightArmsMotor = new Victor(RIGHT_ARMS_MOTOR_CHANNEL);
 			m_armAngle = 0;
-=======
-			m_leftArmsMotor = new Jaguar(LEFT_ARMS_MOTOR_CHANNEL);
-			m_rightArmsMotor = new Jaguar(RIGHT_ARMS_MOTOR_CHANNEL);
-			float m_armAngle = 0;
-			float m_setArmAngle = 0;
->>>>>>> 8ae0bf2b774e67d41f26dbdb6956a1f440ab7fab
 		}
 		Arms::~Arms() {
 			delete m_leftArmsMotor;
 			delete m_rightArmsMotor;
 			delete m_armAngle;
-			delete m_setArmAngle;
 		}
 		//Sets arm position based on value in degrees
 		void SetPosition(float m_setArmAngle) {
