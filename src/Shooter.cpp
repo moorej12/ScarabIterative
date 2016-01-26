@@ -19,9 +19,7 @@ class Shooter {
 		DigitalInput *m_ballLoaded;
 
 	public:
-		/**
-		* Makes a shooter
-		*/
+		//Makes a shooter
 		Shooter() {
 			m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 			m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
@@ -37,9 +35,7 @@ class Shooter {
 			delete m_ballLoaded;
 		}
 
-		/**
-		* Yo holmes - This is how you slurp up the dodgeballs
-		*/
+		//Yo holmes - This is how you slurp up the dodgeballs
 		void Load() {
 			if(BallLoaded() == false){
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
@@ -53,11 +49,10 @@ class Shooter {
 
 		void AdjustPosition(float armSpeed) {
 			m_armSpeed = armSpeed;
+
 		}
 
-		/**
-		* Hey pal - This is how you throw the ball like a pro
-		*/
+		//Hey pal - This is how you throw the ball like a pro
 		void Shoot() {
 			if(BallLoaded() == true) {
 			m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
@@ -76,11 +71,6 @@ class Shooter {
 		//Tells whether the ball is loaded
 		bool BallLoaded() {
 			return m_ballLoaded->Get();
-		}
-
-		int Constrain(int var, int min, int max) {
-			// Needlessly complicated ternary (but just so quick to write)
-			return (min < var && var < max ? var : (var < min ? min : max));
 		}
 
 		//Slowly rotates the gripper wheels to eject the ball.

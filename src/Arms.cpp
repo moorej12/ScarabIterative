@@ -10,7 +10,6 @@
 
 class Arms {
 	private:
-
 		//make sure to update the arm angle every cycle...
 		float m_armAngle;
 		Encoder *m_leftEncoder;
@@ -18,21 +17,6 @@ class Arms {
 		float m_targetArmsAngle;
 		VictorSP *m_leftArmsMotor;
 		VictorSP *m_rightArmsMotor;
-
-		//Checks if the arms are at the minimum possible angle.
-		//If true, it doesn�t allow further movement in that direction.
-
-		bool IsLowestPosition() {
-			return false;
-		}
-
-		//Checks if the arms are at the maximum possible angle.
-		//If true, it doesn�t allow further movement in that direction.
-
-		bool IsHighestPosition() {
-			return false;
-		}
-
 
 	public:
 		Arms() {
