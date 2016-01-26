@@ -9,17 +9,14 @@
 #include "config.h"
 
 Arms::Arms() {
-	m_leftArmsMotor = new Victor(LEFT_ARMS_MOTOR_CHANNEL);
-	m_rightArmsMotor = new Victor(RIGHT_ARMS_MOTOR_CHANNEL);
+	m_leftArmsMotor = new VictorSP(LEFT_ARMS_MOTOR_CHANNEL);
+	m_rightArmsMotor = new VictorSP(RIGHT_ARMS_MOTOR_CHANNEL);
 	m_armAngle = 0;
 }
-
 Arms::~Arms() {
 	delete m_leftArmsMotor;
 	delete m_rightArmsMotor;
-	delete m_armAngle;
 }
-
 //Sets arm position based on value in degrees
 void Arms::SetPosition(float m_setArmAngle) {
 

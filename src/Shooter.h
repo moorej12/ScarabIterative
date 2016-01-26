@@ -30,5 +30,4 @@ class Shooter {
 		bool CanLoad();
 		bool CanShoot();
 };
-
 #endif /* SRC_SHOOTER_H_ */
