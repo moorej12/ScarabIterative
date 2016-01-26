@@ -5,6 +5,7 @@
  *      Author: Seth
  */
 
+#include "WPIlib.h"
 #include "Shooter.h"
 #include "config.h"
 
@@ -13,8 +14,8 @@ class Shooter {
 		VictorSP *m_leftMotorController;
 		VictorSP *m_rightMotorController;
 
-		float *m_targetAngle;
-		float *m_armSpeed;
+		float m_targetAngle;
+		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
 
 	public:
@@ -34,32 +35,31 @@ class Shooter {
 
 		~Shooter() {
 			delete m_ballLoaded;
-			delete m_targetAngle;
 		}
 
 		/**
 		* Yo holmes - This is how you slurp up the dodgeballs
 		*/
 		void Load() {
-			if(BallLoaded == false){
+			if(BallLoaded() == false){
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 			m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 			}
 		}
 
-		void SetAngle(m_targetAngle) {
-
+		void SetAngle(float targetAngle) {
+			m_targetAngle = targetAngle;
 		}
 
-		void AdjustPosition(m_armSpeed) {
-
+		void AdjustPosition(float armSpeed) {
+			m_armSpeed = armSpeed;
 		}
 
 		/**
 		* Hey pal - This is how you throw the ball like a pro
 		*/
 		void Shoot() {
-			if(BallLoaded == true) {
+			if(BallLoaded() == true) {
 			m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 			m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 			}
@@ -86,7 +86,7 @@ class Shooter {
 		//Slowly rotates the gripper wheels to eject the ball.
 		//Should only be called when the sensor shows the ball is loaded.
 		void Unload(){
-			if(BallLoaded == true) {
+			if(BallLoaded() == true) {
 
 			}
 		}
