@@ -8,7 +8,6 @@
 #ifndef SRC_SHOOTER_H_
 #define SRC_SHOOTER_H_
 
-/*
 class Shooter {
 	private:
 		VictorSP *m_leftMotorController;
@@ -31,5 +30,4 @@ class Shooter {
 		bool CanLoad();
 		bool CanShoot();
 };
-*/
 #endif /* SRC_SHOOTER_H_ */
