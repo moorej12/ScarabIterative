@@ -71,7 +71,8 @@ void Shooter::Update() {
 	}
 
 	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_unloadTime && m_unloadTime > -1) {
-
+		Idle();
+		m_unloadTime = -1;
 	}
 }
 
@@ -96,7 +97,7 @@ void Shooter::Idle() {
 //Tells whether the ball is loaded
 bool Shooter::BallLoaded() {
 	//return m_ballLoaded->Get();
-	return false;
+	return true;
 }
 
 //Slowly rotates the gripper wheels to eject the ball.

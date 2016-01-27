@@ -26,7 +26,7 @@ public:
 
 	Robot() {
 //		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
-//		m_joy1 = new Joystick(0);
+		m_joy1 = new Joystick(1);
 //		m_joy2 = new Joystick(1);
 		m_drive = new Drive();
 		m_shooter = new Shooter();
@@ -84,10 +84,12 @@ public:
 
 	void TeleopPeriodic()
 	{
-		m_drive->RobotMove();
+//		m_drive->RobotMove();
 		if(m_joy1->GetTrigger()) {
-			m_shooter->Load();
+			m_shooter->Unload();
 		}
+
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()
