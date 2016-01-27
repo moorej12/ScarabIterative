@@ -18,6 +18,7 @@ Shooter::Shooter() {
 	m_ballLoaded = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
 
 	m_shotTime = -1;
+	m_loadTime = -1;
 
 	m_timer = new Timer();
 	m_timer->Reset();
@@ -35,6 +36,8 @@ Shooter::~Shooter() {
 
 //Yo holmes - This is how you slurp up the dodgeballs
 void Shooter::Load() {
+
+	m_loadTime = m_timer->Get();
 	if(BallLoaded() == false){
 		m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 		m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
@@ -56,6 +59,11 @@ void Shooter::Update() {
 		if(m_shotTime > -1) {
 			m_shotTime = -2;
 		}
+	}
+	if(m_loadTime > -1 && BallLoaded()) {
+		Idle();
+		m_loadTime = -1;
+
 	}
 
 	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_shotTime && m_shotTime > -1) {

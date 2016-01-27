@@ -16,7 +16,7 @@ class Shooter {
 		Timer *m_timer;
 		long m_shotTime;
 		long m_unloadTime;
-
+		long m_loadTime;
 		float m_targetAngle;
 		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
