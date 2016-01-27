@@ -2,6 +2,7 @@
 #include "config.h"
 #include "Arms.h"
 #include "Drive.h"
+#include "Shooter.h"
 
 class Robot: public IterativeRobot
 {
@@ -15,6 +16,8 @@ private:
 
 	Drive *m_drive;
 
+	Shooter *m_shooter;
+
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
@@ -26,6 +29,7 @@ public:
 //		m_joy1 = new Joystick(0);
 //		m_joy2 = new Joystick(1);
 		m_drive = new Drive();
+		m_shooter = new Shooter();
 	}
 
 	~Robot() {
@@ -81,6 +85,9 @@ public:
 	void TeleopPeriodic()
 	{
 		m_drive->RobotMove();
+		if(m_joy1->GetTrigger()) {
+			m_shooter->Load();
+		}
 	}
 
 	void TestPeriodic()

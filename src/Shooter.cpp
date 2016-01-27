@@ -95,7 +95,8 @@ void Shooter::Idle() {
 
 //Tells whether the ball is loaded
 bool Shooter::BallLoaded() {
-	return m_ballLoaded->Get();
+	//return m_ballLoaded->Get();
+	return false;
 }
 
 //Slowly rotates the gripper wheels to eject the ball.
