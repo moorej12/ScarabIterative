@@ -15,6 +15,7 @@ class Shooter {
 		VictorSP *m_armyLiftyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
 		Timer *m_timer;
 		long m_shotTime;
+		long m_unloadTime;
 
 		float m_targetAngle;
 		float m_armSpeed;

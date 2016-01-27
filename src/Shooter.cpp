@@ -36,8 +36,8 @@ Shooter::~Shooter() {
 //Yo holmes - This is how you slurp up the dodgeballs
 void Shooter::Load() {
 	if(BallLoaded() == false){
-	m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
-	m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
+		m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
+		m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
 	}
 }
 
@@ -60,6 +60,10 @@ void Shooter::Update() {
 
 	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_shotTime && m_shotTime > -1) {
 		m_armyLiftyThingy5064EXTREMEXD1337->Set(0); // TODO: Make this retract in future
+	}
+
+	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_unloadTime && m_unloadTime > -1) {
+
 	}
 }
 
@@ -90,7 +94,10 @@ bool Shooter::BallLoaded() {
 //Should only be called when the sensor shows the ball is loaded.
 void Shooter::Unload(){
 	if(BallLoaded() == true) {
-
+		m_unloadTime = m_timer->Get();
+		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
+		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
+		m_armyLiftyThingy5064EXTREMEXD1337->Set(SHOOTER_PLATFORM_RAISE_SPEED);
 	}
 }
 
