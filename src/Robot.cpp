@@ -11,8 +11,8 @@ private:
 
 	//RobotDrive *m_drive;
 
-	Joystick *m_joy2;
 	Joystick *m_joy1;
+	Joystick *m_joy2;
 
 	Drive *m_drive;
 
@@ -26,14 +26,14 @@ public:
 
 	Robot() {
 //		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
-		m_joy1 = new Joystick(1);
-//		m_joy2 = new Joystick(1);
-		m_drive = new Drive();
-		m_shooter = new Shooter();
+		m_joy1 = new Joystick(0);
+		m_joy2 = new Joystick(1);
+		m_drive = new Drive(m_joy1);
+		m_shooter = new Shooter(m_joy1);
 	}
 
 	~Robot() {
-
+		delete m_joy1;
 		delete m_joy2;
 	}
 

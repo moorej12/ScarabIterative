@@ -20,9 +20,10 @@ class Shooter {
 		float m_targetAngle;
 		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
+		Joystick *m_joy1;
 
 	public:
-		Shooter();
+		Shooter(Joystick *joy1);
 		~Shooter();
 		void Load();
 		void SetAngle(float m_targetAngle);

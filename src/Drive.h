@@ -15,7 +15,7 @@ class Drive {
 		Joystick *m_dance1;
 
 	public:
-		Drive();
+		Drive(Joystick *joy1);
 		~Drive();
 		void RobotMove();
 		void RobotActiveStop();

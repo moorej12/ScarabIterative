@@ -10,7 +10,8 @@
 #include "config.h"
 
 //Makes a shooter
-Shooter::Shooter() {
+Shooter::Shooter(Joystick *joy1) {
+	m_joy1 = joy1;
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_targetAngle = 0;
@@ -19,6 +20,7 @@ Shooter::Shooter() {
 
 	m_shotTime = -1;
 	m_loadTime = -1;
+	m_unloadTime = -1;
 
 	m_timer = new Timer();
 	m_timer->Reset();
@@ -86,9 +88,7 @@ void Shooter::Shoot() {
 	}
 }
 
-/**
-* You clearly did something, and now you wants to undo's it
-*/
+//You clearly did something, and now you wants to undo's it
 void Shooter::Idle() {
 	m_leftMotorController->Set(SHOOTER_IDLE_SPEED);
 	m_rightMotorController->Set(SHOOTER_IDLE_SPEED);

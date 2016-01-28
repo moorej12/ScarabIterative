@@ -8,12 +8,12 @@
 #include "Drive.h"
 #include "config.h"
 
-Drive::Drive() {
+Drive::Drive(Joystick *joy1) {
 	m_drive = new RobotDrive(DRIVE_MOTOR_LEFT_FRONT_CHANNEL,
 			DRIVE_MOTOR_LEFT_REAR_CHANNEL,
 			DRIVE_MOTOR_RIGHT_FRONT_CHANNEL,
 			DRIVE_MOTOR_RIGHT_REAR_CHANNEL);
-	m_joy1 = new Joystick(0);
+	m_joy1 = joy1;
 }
 
 //(+) for forwards and (-) for backwards; sets the current
