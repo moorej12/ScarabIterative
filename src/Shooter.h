@@ -19,6 +19,7 @@ class Shooter {
 		long m_loadTime;
 		float m_targetAngle;
 		float m_armSpeed;
+		SmartDashboard *m_smartDashboard;
 		DigitalInput *m_ballLoaded;
 		Joystick *m_joy1;
 
@@ -35,5 +36,6 @@ class Shooter {
 		bool CanLoad();
 		bool CanShoot();
 		void Update();
+		void Debug();
 };
 #endif /* SRC_SHOOTER_H_ */

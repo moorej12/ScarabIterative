@@ -28,6 +28,7 @@ Shooter::Shooter(Joystick *joy1) {
 
 	m_leftMotorController->SetInverted(true);
 	m_armyLiftyThingy5064EXTREMEXD1337 = new VictorSP(ARMY_LIFTY_THINGY_5064_EXTREME_XD_1337_CHANNEL);
+	m_smartDashboard = new SmartDashboard();
 }
 
 
@@ -56,6 +57,8 @@ void Shooter::AdjustPosition(float armSpeed) {
 }
 
 void Shooter::Update() {
+
+
 //	if(m_timer->Get() > SHOOTER_SHOOT_CANCELLATION_TIME_MS + m_shotTime && m_shotTime > -1) {
 //		Idle();
 //		if(m_shotTime > -1) {
@@ -76,6 +79,8 @@ void Shooter::Update() {
 //		Idle();
 //		m_unloadTime = -1;
 //	}
+
+	Debug();
 }
 
 //Hey pal - This is how you throw the ball like a pro
@@ -124,4 +129,8 @@ bool Shooter::CanLoad(/*not implemented*/){
 bool Shooter::CanShoot(/*not implemented*/){
 //To return true:
 //Touch Sensor == True
+}
+
+void Shooter::Debug(){
+	m_smartDashboard->PutNumber("Time", m_timer->Get());
 }
