@@ -19,9 +19,9 @@ class Shooter {
 		long m_loadTime;
 		float m_targetAngle;
 		float m_armSpeed;
-		SmartDashboard *m_smartDashboard;
 		DigitalInput *m_ballLoaded;
 		Joystick *m_joy1;
+		SmartDashboard *m_smartDashboard;
 
 	public:
 		Shooter(Joystick *joy1);
