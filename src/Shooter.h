@@ -22,7 +22,6 @@ class Shooter {
 		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
 		Joystick *m_joy1;
-		SmartDashboard *m_smartDashboard;
 
 	public:
 		Shooter(Joystick *joy1);
