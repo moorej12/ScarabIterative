@@ -141,7 +141,8 @@ bool Shooter::DeBounce() {
 	bool pseudoLastPressed = m_lastPressed;
 	//	m_lastPressed = m_joy1->
 
-	if(pseudoLastPressed) == false && /*Joystick input... m_joy1->GetTrigger()*/) return true;
-		return false;
+	if((pseudoLastPressed) == false && m_joy1->GetTrigger()){
+		return true;
+	}
 
 }
