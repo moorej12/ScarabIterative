@@ -18,10 +18,11 @@ class Shooter {
 		double m_unloadTime;
 		double m_loadTime;
 		bool m_lastPressed;
+
 		float m_targetAngle;
 		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
-		Joystick *m_joy1;
+		Joystick *m_joy2;
 
 	public:
 		Shooter(Joystick *joy1);
@@ -37,7 +38,6 @@ class Shooter {
 		bool CanShoot();
 		void Update();
 		void Debug();
-		bool DeBounce();
 		void PneumaticTest(bool status); //Test Code
 };
 #endif /* SRC_SHOOTER_H_ */
