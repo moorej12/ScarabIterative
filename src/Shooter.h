@@ -17,6 +17,7 @@ class Shooter {
 		long m_shotTime;
 		long m_unloadTime;
 		long m_loadTime;
+		bool m_lastPressed;
 		float m_targetAngle;
 		float m_armSpeed;
 		DigitalInput *m_ballLoaded;
@@ -37,5 +38,6 @@ class Shooter {
 		bool CanShoot();
 		void Update();
 		void Debug();
+		bool DeBounce();
 };
 #endif /* SRC_SHOOTER_H_ */

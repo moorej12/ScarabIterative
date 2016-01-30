@@ -30,6 +30,7 @@ Shooter::Shooter(Joystick *joy1) {
 	m_armyLiftyThingy5064EXTREMEXD1337 = new VictorSP(ARMY_LIFTY_THINGY_5064_EXTREME_XD_1337_CHANNEL);
 	m_smartDashboard = new SmartDashboard();
 	m_smartDashboard->init();
+	m_lastPressed = false;
 }
 
 
@@ -134,4 +135,14 @@ bool Shooter::CanShoot(/*not implemented*/){
 
 void Shooter::Debug() {
 	m_smartDashboard->PutNumber("Time", m_timer->Get());
+}
+
+bool Shooter::DeBounce() {
+
+	bool pseudoLastPressed = m_lastPressed;
+	//	m_lastPressed = m_joy1->
+
+	if(pseudoLastPressed == false && /*Joystick input... m_joy1->GetTrigger()*/) return true;
+		return false;
+
 }
