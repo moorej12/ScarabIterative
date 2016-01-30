@@ -8,6 +8,7 @@
 #include "WPIlib.h"
 #include "Shooter.h"
 #include "config.h"
+#include "Debounce.h"
 
 //Makes a shooter
 Shooter::Shooter(Joystick *joy1) {
@@ -134,15 +135,5 @@ void Shooter::Debug() {
 	//An example of how to use the SmartDashboard...
 	SmartDashboard::PutNumber("Timer Value", m_timer->Get());
 
-}
-
-bool Shooter::DeBounce() {
-
-	bool pseudoLastPressed = m_lastPressed;
-	//	m_lastPressed = m_joy1->
-
-	if((pseudoLastPressed) == false && m_joy1->GetTrigger()){
-		return true;
 	}
-
 }

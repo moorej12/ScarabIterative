@@ -37,6 +37,5 @@ class Shooter {
 		bool CanShoot();
 		void Update();
 		void Debug();
-		bool DeBounce();
 };
 #endif /* SRC_SHOOTER_H_ */

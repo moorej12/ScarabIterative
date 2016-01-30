@@ -1,5 +1,6 @@
 #include "WPILib.h"
 #include "config.h"
+#include "Debounce.h"
 #include "Arms.h"
 #include "Drive.h"
 #include "Shooter.h"
@@ -13,6 +14,8 @@ private:
 
 	Joystick *m_joy1;
 	Joystick *m_joy2;
+
+	Debounce *m_triggerDebounce;
 
 	Drive *m_drive;
 
@@ -30,6 +33,7 @@ public:
 		m_joy2 = new Joystick(1);
 		//m_drive = new Drive(m_joy1);
 		m_shooter = new Shooter(m_joy1);
+		m_triggerDebounce = new Debounce(m_joy1, 1);
 	}
 
 	~Robot() {
@@ -85,11 +89,10 @@ public:
 	void TeleopPeriodic()
 	{
 		m_drive->RobotMove();
-//		if(m_joy1->GetTrigger()) {
-//			m_shooter->Unload();
-//		}
-//
-//		m_shooter->Update();
+		if(m_triggerDebounce->GetPressed()) {
+			m_shooter->Shoot();
+		}
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()
