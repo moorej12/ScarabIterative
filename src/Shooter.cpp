@@ -82,7 +82,7 @@ void Shooter::Update() {
 //		m_unloadTime = -1;
 //	}
 
-	Debug();
+//	Debug();
 }
 
 //Hey pal - This is how you throw the ball like a pro

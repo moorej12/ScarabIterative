@@ -19,7 +19,7 @@ Drive::Drive(Joystick *joy1) {
 //(+) for forwards and (-) for backwards; sets the current
 //velocity for the robot
 void Drive::RobotMove() {
-	m_drive->ArcadeDrive(m_joy1, true);
+	m_drive->ArcadeDrive(m_joy1->GetY(), m_joy1->GetZ(), true);
 }
 
 //put in power to actively stop the movement of the robot

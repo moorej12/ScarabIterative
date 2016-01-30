@@ -27,10 +27,9 @@ private:
 public:
 
 	Robot() {
-//		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
-		//m_drive = new Drive(m_joy1);
+		m_drive = new Drive(m_joy1);
 		m_shooter = new Shooter(m_joy1);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
@@ -89,15 +88,15 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->RobotMove();
-//		if(m_joy1->GetTrigger()) {
-//			m_shooter->PneumaticTest(true);
-//		}
-//		else {
-//			m_shooter->PneumaticTest(false);
-//		}
-//
-//		m_shooter->Update();
+		m_drive->RobotMove();
+		/*if(m_joy1->GetTrigger()) {
+			m_shooter->PneumaticTest(true);
+		}
+		else {
+			m_shooter->PneumaticTest(false);
+		}*/
+
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()
