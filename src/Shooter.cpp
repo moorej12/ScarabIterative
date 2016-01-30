@@ -12,7 +12,7 @@
 
 //Makes a shooter
 Shooter::Shooter(Joystick *joy1) {
-	m_joy1 = joy1;
+	m_joy2 = joy1;
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_targetAngle = 0;
@@ -45,6 +45,7 @@ void Shooter::Load() {
 
 	m_loadTime = m_timer->Get();
 	if(BallLoaded() == false){
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
 		m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 		m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
 	}
@@ -91,6 +92,7 @@ void Shooter::Shoot() {
 		m_shotTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+		//m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true); //Needs timers
 	}
 }
 
@@ -112,7 +114,8 @@ void Shooter::Unload(){
 	if(BallLoaded() == true) {
 		m_unloadTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);;
+		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
+		//m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true); //Needs timers
 	}
 }
 
@@ -134,6 +137,8 @@ bool Shooter::CanShoot(/*not implemented*/){
 void Shooter::Debug() {
 	//An example of how to use the SmartDashboard...
 	SmartDashboard::PutNumber("Timer Value", m_timer->Get());
+}
 
-	}
+void Shooter::PneumaticTest(bool status) { //Test Code
+	m_ballyLaunchyThingy5064EXTREMEXD1337->Set(status);
 }
