@@ -44,6 +44,7 @@ void Shooter::Load() {
 
 	m_loadTime = m_timer->Get();
 	if(BallLoaded() == false){
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
 		m_leftMotorController->Set(SHOOTER_RETRACT_SPEED);
 		m_rightMotorController->Set(SHOOTER_RETRACT_SPEED);
 	}
@@ -90,6 +91,7 @@ void Shooter::Shoot() {
 		m_shotTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true); //Needs timers
 	}
 }
 
@@ -111,7 +113,8 @@ void Shooter::Unload(){
 	if(BallLoaded() == true) {
 		m_unloadTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);;
+		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true); //Needs timers
 	}
 }
 
@@ -144,5 +147,9 @@ bool Shooter::DeBounce() {
 	if((pseudoLastPressed) == false && m_joy1->GetTrigger()){
 		return true;
 	}
+}
 
+
+void Shooter::PneumaticTest(bool status) { //Test Code
+	m_ballyLaunchyThingy5064EXTREMEXD1337->Set(status);
 }

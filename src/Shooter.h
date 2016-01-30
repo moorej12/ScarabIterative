@@ -38,5 +38,6 @@ class Shooter {
 		void Update();
 		void Debug();
 		bool DeBounce();
+		void PneumaticTest(bool status); //Test Code
 };
 #endif /* SRC_SHOOTER_H_ */
