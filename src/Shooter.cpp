@@ -29,8 +29,6 @@ Shooter::Shooter(Joystick *joy1) {
 	m_leftMotorController->SetInverted(true);
 
 	m_ballyLaunchyThingy5064EXTREMEXD1337 = new Solenoid(BALLY_LAUNCHY_THINGY_5064_EXTREME_XD_1337_CHANNEL); //Needs stuff
-	m_smartDashboard = new SmartDashboard();
-	m_smartDashboard->init();
 	m_lastPressed = false;
 }
 
@@ -133,7 +131,9 @@ bool Shooter::CanShoot(/*not implemented*/){
 }
 
 void Shooter::Debug() {
-	m_smartDashboard->PutNumber("Time", m_timer->Get());
+	//An example of how to use the SmartDashboard...
+	SmartDashboard::PutNumber("Timer Value", m_timer->Get());
+
 }
 
 bool Shooter::DeBounce() {
