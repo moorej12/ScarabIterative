@@ -17,6 +17,6 @@ class Debounce {
 		bool m_returnedTrue;
 	public:
 		Debounce(Joystick *joy1, int button);
-		bool getPressed();
+		bool GetPressed();
 	};
 #endif /* SRC_DEBOUNCE_H_ */

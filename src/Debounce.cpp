@@ -12,7 +12,7 @@ Debounce::Debounce(Joystick *joy1, int button){
 	m_joy = joy1;
 	m_button = button;
 }
-bool Debounce::getPressed(){
+bool Debounce::GetPressed(){
 	bool currentReading = m_joy->GetRawButton(m_button);
 	if(currentReading == m_lastValue){
 		m_counter++;

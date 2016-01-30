@@ -3,6 +3,7 @@
 #include "Arms.h"
 #include "Drive.h"
 #include "Shooter.h"
+#include "Debounce.h"
 
 class Robot: public IterativeRobot
 {
@@ -13,6 +14,8 @@ private:
 
 	Joystick *m_joy1;
 	Joystick *m_joy2;
+	Debounce *m_loadButton;
+	Debounce *m_unloadButton;
 
 	Drive *m_drive;
 
@@ -27,13 +30,14 @@ private:
 public:
 
 	Robot() {
-//		m_drive = new RobotDrive(0 /* Zero should NOT be here. Change it when it works.*/);
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
-		//m_drive = new Drive(m_joy1);
-		m_shooter = new Shooter(m_joy1);
+		m_drive = new Drive(m_joy1);
+		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
+		m_loadButton = new Debounce(m_joy2, 2);
+		m_unloadButton = new Debounce(m_joy2, 3);
 	}
 
 	~Robot() {
@@ -98,6 +102,12 @@ public:
 //		}
 //
 //		m_shooter->Update();
+		if(m_loadButton) {
+			m_shooter->Load();
+		}
+		if(m_unloadButton) {
+			m_shooter->Unload();
+		}
 	}
 
 	void TestPeriodic()
