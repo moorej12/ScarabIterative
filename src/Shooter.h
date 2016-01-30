@@ -12,7 +12,7 @@ class Shooter {
 	private:
 		VictorSP *m_leftMotorController;
 		VictorSP *m_rightMotorController;
-		VictorSP *m_armyLiftyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
+		Solenoid *m_ballyLaunchyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
 		Timer *m_timer;
 		long m_shotTime;
 		long m_unloadTime;

@@ -27,13 +27,14 @@ Shooter::Shooter(Joystick *joy1) {
 	m_timer->Start();
 
 	m_leftMotorController->SetInverted(true);
-	m_armyLiftyThingy5064EXTREMEXD1337 = new VictorSP(ARMY_LIFTY_THINGY_5064_EXTREME_XD_1337_CHANNEL);
+	m_ballyLaunchyThingy5064EXTREMEXD1337 = new Solenoid(BALLY_LAUNCHY_THINGY_5064_EXTREME_XD_1337_CHANNEL); //Needs stuff
 }
 
 
 Shooter::~Shooter() {
 	delete m_ballLoaded;
 	delete m_timer;
+	delete m_ballyLaunchyThingy5064EXTREMEXD1337;
 }
 
 //Yo holmes - This is how you slurp up the dodgeballs
@@ -84,7 +85,6 @@ void Shooter::Shoot() {
 		m_shotTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
-		m_armyLiftyThingy5064EXTREMEXD1337->Set(SHOOTER_PLATFORM_RAISE_SPEED);
 	}
 }
 
@@ -106,8 +106,7 @@ void Shooter::Unload(){
 	if(BallLoaded() == true) {
 		m_unloadTime = m_timer->Get();
 		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		m_armyLiftyThingy5064EXTREMEXD1337->Set(SHOOTER_PLATFORM_RAISE_SPEED);
+		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);;
 	}
 }
 

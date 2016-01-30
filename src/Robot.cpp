@@ -84,12 +84,12 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->RobotMove();
-		if(m_joy1->GetTrigger()) {
-			m_shooter->Unload();
-		}
-
-		m_shooter->Update();
+		m_drive->RobotMove();
+//		if(m_joy1->GetTrigger()) {
+//			m_shooter->Unload();
+//		}
+//
+//		m_shooter->Update();
 	}
 
 	void TestPeriodic()
