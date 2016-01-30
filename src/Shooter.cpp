@@ -27,7 +27,11 @@ Shooter::Shooter(Joystick *joy1) {
 	m_timer->Start();
 
 	m_leftMotorController->SetInverted(true);
+
 	m_ballyLaunchyThingy5064EXTREMEXD1337 = new Solenoid(BALLY_LAUNCHY_THINGY_5064_EXTREME_XD_1337_CHANNEL); //Needs stuff
+	m_smartDashboard = new SmartDashboard();
+	m_smartDashboard->init();
+	m_lastPressed = false;
 }
 
 
@@ -57,26 +61,29 @@ void Shooter::AdjustPosition(float armSpeed) {
 }
 
 void Shooter::Update() {
+
 //	if(m_timer->Get() > SHOOTER_SHOOT_CANCELLATION_TIME_MS + m_shotTime && m_shotTime > -1) {
 //		Idle();
 //		if(m_shotTime > -1) {
 //			m_shotTime = -2;
 //		}
 //	}
+//
 //	if(m_loadTime > -1 && BallLoaded()) {
 //		Idle();
 //		m_loadTime = -1;
-//
 //	}
 //
 //	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_shotTime && m_shotTime > -1) {
-//		m_armyLiftyThingy5064EXTREMEXD1337->Set(0); // TODO: Make this retract in future
+//
 //	}
 //
 //	if(m_timer->Get() > SHOOTER_PLATFORM_CANCELLATION_TIME_MS + m_unloadTime && m_unloadTime > -1) {
 //		Idle();
 //		m_unloadTime = -1;
 //	}
+
+	Debug();
 }
 
 //Hey pal - This is how you throw the ball like a pro
@@ -123,4 +130,18 @@ bool Shooter::CanLoad(/*not implemented*/){
 bool Shooter::CanShoot(/*not implemented*/){
 //To return true:
 //Touch Sensor == True
+}
+
+void Shooter::Debug() {
+	m_smartDashboard->PutNumber("Time", m_timer->Get());
+}
+
+bool Shooter::DeBounce() {
+
+	bool pseudoLastPressed = m_lastPressed;
+	//	m_lastPressed = m_joy1->
+
+	if(pseudoLastPressed) == false && /*Joystick input... m_joy1->GetTrigger()*/) return true;
+		return false;
+
 }
