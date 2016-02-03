@@ -10,9 +10,9 @@
 
 //Shooter Speeds 1 = 100% 0 = 0% etc
 #define SHOOTER_IDLE_SPEED 0
-#define SHOOTER_SHOOT_SPEED 0.2
-#define SHOOTER_UNLOAD_SPEED 0.1
-#define SHOOTER_RETRACT_SPEED -0.15
+#define SHOOTER_SHOOT_SPEED 1
+#define SHOOTER_UNLOAD_SPEED 0.5
+#define SHOOTER_LOAD_SPEED -0.5
 
 //Shooter Timing... this is in seconds!!
 #define SHOOTER_SHOOT_CANCELLATION_TIME_MS .7

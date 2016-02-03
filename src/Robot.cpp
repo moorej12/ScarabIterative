@@ -15,9 +15,6 @@ private:
 
 	Joystick *m_joy1;
 	Joystick *m_joy2;
-	Debounce *m_shootButton;
-	Debounce *m_loadButton;
-	Debounce *m_unloadButton;
 
 	Drive *m_drive;
 
@@ -39,9 +36,6 @@ public:
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
-		m_shootButton = new Debounce(m_joy1, 1);
-		m_loadButton = new Debounce(m_joy2, 2);
-		m_unloadButton = new Debounce(m_joy2, 3);
 	}
 
 	~Robot() {
@@ -98,23 +92,14 @@ public:
 	void TeleopPeriodic()
 	{
 		m_drive->RobotMove();
+		m_shooter->Update();
 
-		if(m_shootButton->GetPressed()) {
-			m_shooter->Shoot();
-		}
-		if(m_loadButton->GetPressed()) {
-			m_shooter->Load();
-		}
-		if(m_unloadButton->GetPressed()) {
-			m_shooter->Unload();
-		}
 		//		if(m_joy1->GetTrigger()) {
 		//			m_shooter->PneumaticTest(true);
 		//		}
 		//		else {
 		//			m_shooter->PneumaticTest(false);
 		//		}
-		m_shooter->Update();
 	}
 
 	void TestPeriodic()

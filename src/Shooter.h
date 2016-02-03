@@ -8,6 +8,9 @@
 #ifndef SRC_SHOOTER_H_
 #define SRC_SHOOTER_H_
 
+#include "WPIlib.h"
+#include "Debounce.h"
+
 class Shooter {
 	private:
 		VictorSP *m_leftMotorController;
@@ -18,10 +21,14 @@ class Shooter {
 		double m_unloadTime;
 		double m_loadTime;
 		bool m_lastPressed;
+		Debounce *m_shootButton;
+		Debounce *m_loadButton;
+		Debounce *m_unloadButton;
 
 		float m_targetAngle;
 		float m_armSpeed;
-		DigitalInput *m_ballLoaded;
+		DigitalInput *m_ballLoadedButton;
+		bool m_ballLoaded;
 		Joystick *m_joy2;
 
 	public:
