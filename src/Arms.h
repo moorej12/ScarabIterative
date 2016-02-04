@@ -28,6 +28,8 @@ class Arms {
 
 		float GetPosition();
 
+		void Init(); //Resets all values to zero
+
 };
 
 #endif /* SRC_ARMS_H_ */

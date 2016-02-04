@@ -210,3 +210,18 @@ void Shooter::Debug() {
 void Shooter::PneumaticTest(bool status) { //Test Code
 	m_ballyLaunchyThingy5064EXTREMEXD1337->Set(status);
 }
+
+void Shooter::Init(){
+//resets all values to zero
+	m_targetAngle = 0;
+	m_armSpeed = 0;
+	m_ballLoaded = false;
+	m_shotTime = 0;
+	m_loadTime = 0;
+	m_unloadTime = 0;
+	m_shooting = false;
+	m_loading = false;
+	m_unloading = false;
+	m_lastPressed = false;
+
+}

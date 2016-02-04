@@ -49,5 +49,7 @@ class Shooter {
 		void Update();
 		void Debug();
 		void PneumaticTest(bool status); //Test Code
+		void Init(); //Resets all values to zero
+
 };
 #endif /* SRC_SHOOTER_H_ */
