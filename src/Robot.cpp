@@ -41,6 +41,9 @@ public:
 	~Robot() {
 		delete m_joy1;
 		delete m_joy2;
+		delete m_drive;
+		delete m_shooter;
+		delete m_compressor;
 	}
 
 	void RobotInit()
