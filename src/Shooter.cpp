@@ -10,6 +10,9 @@
 #include "config.h"
 #include "Debounce.h"
 
+#define ballyLaunchyShoot true
+#define ballyLaunchyRetract !ballyLaunchyShoot
+
 //Makes a shooter
 Shooter::Shooter(Joystick *joy1) {
 	m_joy2 = joy1;
@@ -27,6 +30,10 @@ Shooter::Shooter(Joystick *joy1) {
 	m_shotTime = 0;
 	m_loadTime = 0;
 	m_unloadTime = 0;
+
+	m_shooting = false;
+	m_loading = false;
+	m_unloading = false;
 
 	m_timer = new Timer();
 	m_timer->Reset();
@@ -52,7 +59,7 @@ void Shooter::Load() {
 		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
 		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);
 		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);
-		if(m_ballLoadedButton) {
+		if(m_ballLoadedButton->Get()) {
 			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);
 			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);
 			m_ballLoaded = true;
@@ -93,7 +100,7 @@ void Shooter::Update() {
 //		Idle();
 //		m_unloadTime = -1;
 //	}
-
+//this stuff works
 	if(/*m_shootButton->GetPressed()*/ m_joy2->GetTrigger()) {
 		Shoot();
 	}
@@ -103,6 +110,22 @@ void Shooter::Update() {
 	if(/*m_unloadButton->GetPressed()*/ m_joy2->GetRawButton(3)) {
 		Unload();
 	}
+	SmartDashboard::PutBoolean("Loaded: ",m_ballLoadedButton->Get());
+	printf("Something");
+
+////Test Code
+//	if(m_joy2->GetTrigger()) {
+//		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
+//		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+//	} else {
+//		Idle();
+//	}
+//
+//	if(m_joy2->GetRawButton(2)) {
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+//	} else {
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+//	}
 
 //	Debug();
 }
@@ -115,13 +138,14 @@ void Shooter::Shoot() {
 		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
 		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->HasPeriodPassed(3)) {
+		if(m_timer->Get() >= 3) {
 			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true);
 			//Turns everything off
-			if(m_timer->HasPeriodPassed(3.5)) {
+			if(m_timer->Get() >= 3.5) {
 				m_ballLoaded = false;
 				Idle();
 				m_timer->Stop();
+				m_timer->Reset();
 				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
 			}
 		}
@@ -149,13 +173,14 @@ void Shooter::Unload(){
 		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
 		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
 		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->HasPeriodPassed(3)) {
+		if(m_timer->Get() >= 3) {
 			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true);
 			//Turns everything off
-			if(m_timer->HasPeriodPassed(3.5)) {
+			if(m_timer->Get() >= 3.5) {
 				m_ballLoaded = false;
 				Idle();
 				m_timer->Stop();
+				m_timer->Reset();
 				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
 			}
 		}
