@@ -26,6 +26,8 @@ Shooter::Shooter(Joystick *joy1) {
 	m_shootButton = new Debounce(m_joy2, 1);
 	m_loadButton = new Debounce(m_joy2, 2);
 	m_unloadButton = new Debounce(m_joy2, 3);
+	m_idleButton = new Debounce(m_joy2, 4);
+	m_loadedButton = new Debounce(m_joy2, 5);
 
 	m_shotTime = 0;
 	m_loadTime = 0;
@@ -59,10 +61,10 @@ Shooter::~Shooter() {
 //Yo holmes - This is how you slurp up the dodgeballs
 void Shooter::Load() {
 	if(!BallLoaded()){ // if there is no ball in the robot do all the below
-		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);//calls the function Set which sets the solenoid output to false
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
 		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
 		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
-		if(m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
+		if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
 			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
@@ -77,31 +79,45 @@ void Shooter::SetAngle(float targetAngle) {
 
 void Shooter::AdjustPosition(float armSpeed) {
 	m_armSpeed = armSpeed;
-
 }
 
 //This runs every 20 ms
 //Put all stuff here
 void Shooter::Update() {
-	if(/*m_shootButton->GetPressed()*/ m_joy2->GetTrigger()) {
+	//Stops all other functions
+	if(/*m_idleButton->GetPressed()*/ m_joy2->GetRawButton(4)) {
+		m_shooting = false;
+		m_loading = false;
+		m_unloading = false;
+		Idle();
+	}
+	if(/*m_loadedButton->GetPressed()*/ m_joy2->GetRawButton(5)) {
+		m_ballLoaded = true;
+	}
+	if(/*m_shootButton->GetPressed()*/ BallLoaded() && m_joy2->GetTrigger()) {
 		m_shooting = true;
 	}
 	if(m_shooting) {
 		Shoot();
 	}
-	if(/*m_loadButton->GetPressed()*/ m_joy2->GetRawButton(2)) {
+	if(/*m_loadButton->GetPressed()*/ (!BallLoaded()) && m_joy2->GetRawButton(2)) {
 		m_loading = true;
 	}
 	if(m_loading) {
 		Load();
 	}
-	if(/*m_unloadButton->GetPressed()*/ m_joy2->GetRawButton(3)) {
+	if(/*m_unloadButton->GetPressed()*/ BallLoaded() && m_joy2->GetRawButton(3)) {
 		m_unloading = true;
 	}
 	if(m_unloading) {
 		Unload();
 	}
-	SmartDashboard::PutBoolean("Loaded: ",m_ballLoadedButton->Get());
+	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
+	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
+	SmartDashboard::PutBoolean("Loading: ",m_loading);
+	SmartDashboard::PutBoolean("Shooting: ",m_shooting);
+	SmartDashboard::PutBoolean("Unloading: ",m_unloading);
+
 
 ////Test Code
 //	if(m_joy2->GetTrigger()) {
@@ -127,15 +143,15 @@ void Shooter::Shoot() {
 		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
 		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
 		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->Get() >= 3) {
-			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true);
+		if(m_timer->Get() >= 2.5) {
+			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
 			//Turns everything off
-			if(m_timer->Get() >= 3.5) {
+			if(m_timer->Get() >= 3) {
 				m_ballLoaded = false;
 				Idle();
 				m_timer->Stop();
 				m_timer->Reset();
-				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
+				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
 				m_shooting = false;
 			}
 		}
@@ -162,15 +178,15 @@ void Shooter::Unload(){
 		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
 		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
 		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->Get() >= 3) {
-			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(true);
+		if(m_timer->Get() >= 1) {
+			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
 			//Turns everything off
-			if(m_timer->Get() >= 3.5) {
+			if(m_timer->Get() >= 1.5) {
 				m_ballLoaded = false;
 				Idle();
 				m_timer->Stop();
 				m_timer->Reset();
-				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
+				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
 				m_unloading = false;
 			}
 		}
