@@ -27,6 +27,7 @@ Shooter::Shooter(Joystick *joy1) {
 	m_loadButton = new Debounce(m_joy2, 2);
 	m_unloadButton = new Debounce(m_joy2, 3);
 	m_idleButton = new Debounce(m_joy2, 4);
+	m_loadedButton = new Debounce(m_joy2, 5);
 
 	m_shotTime = 0;
 	m_loadTime = 0;
@@ -84,11 +85,14 @@ void Shooter::AdjustPosition(float armSpeed) {
 //Put all stuff here
 void Shooter::Update() {
 	//Stops all other functions
-	if(/*m_idleButton->GetPressed()*/m_joy2->GetRawButton(4)) {
+	if(/*m_idleButton->GetPressed()*/ m_joy2->GetRawButton(4)) {
 		m_shooting = false;
 		m_loading = false;
 		m_unloading = false;
 		Idle();
+	}
+	if(/*m_loadedButton->GetPressed()*/ m_joy2->GetRawButton(5)) {
+		m_ballLoaded = true;
 	}
 	if(/*m_shootButton->GetPressed()*/ BallLoaded() && m_joy2->GetTrigger()) {
 		m_shooting = true;
