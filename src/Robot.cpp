@@ -4,7 +4,6 @@
 #include "Arms.h"
 #include "Drive.h"
 #include "Shooter.h"
-#include "Debounce.h"
 
 class Robot: public IterativeRobot
 {
@@ -26,6 +25,9 @@ private:
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
+
+
+
 public:
 
 	Robot() {
@@ -41,6 +43,9 @@ public:
 	~Robot() {
 		delete m_joy1;
 		delete m_joy2;
+		delete m_drive;
+		delete m_shooter;
+		delete m_compressor;
 	}
 
 	void RobotInit()
@@ -91,7 +96,7 @@ public:
 
 	void TeleopPeriodic()
 	{
-		m_drive->RobotMove();
+		//m_drive->RobotMove();
 		m_shooter->Update();
 
 		//		if(m_joy1->GetTrigger()) {

@@ -16,6 +16,10 @@ Drive::Drive(Joystick *joy1) {
 	m_joy1 = joy1;
 }
 
+Drive::~Drive() {
+
+}
+
 //(+) for forwards and (-) for backwards; sets the current
 //velocity for the robot
 void Drive::RobotMove() {

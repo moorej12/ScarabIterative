@@ -94,17 +94,17 @@ void Shooter::Update() {
 //		m_unloadTime = -1;
 //	}
 
-	if(/*m_shootButton->GetPressed()*/ m_joy2->GetTrigger()) {
+	if(m_shootButton->GetPressed()) {
 		Shoot();
 	}
-	if(/*m_loadButton->GetPressed()*/ m_joy2->GetRawButton(2)) {
+	/*if(m_loadButton->GetPressed()) {
 		Load();
 	}
-	if(/*m_unloadButton->GetPressed()*/ m_joy2->GetRawButton(3)) {
+	if(m_unloadButton->GetPressed()) {
 		Unload();
 	}
-
-//	Debug();
+*/
+	Debug();
 }
 
 //Hey pal - This is how you throw the ball like a pro
@@ -168,6 +168,7 @@ bool Shooter::CanLoad(/*not implemented*/){
 	//To return true:
 	//-Piston Extended == False
 	//-Touch Sensor == False
+	return false;
 }
 
 //Returns a bool representing whether or not the shooter is able to shoot,
@@ -175,6 +176,7 @@ bool Shooter::CanLoad(/*not implemented*/){
 bool Shooter::CanShoot(/*not implemented*/){
 //To return true:
 //Touch Sensor == True
+	return false;
 }
 
 void Shooter::Debug() {
