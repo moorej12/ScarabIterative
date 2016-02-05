@@ -31,3 +31,8 @@ void Arms::Move() {
 float Arms::GetPosition() {
 	return m_armAngle;
 }
+
+void Arms::Init() {
+	//Resets all values to zero
+	m_armAngle = 0;
+}

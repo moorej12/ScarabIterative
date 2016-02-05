@@ -96,15 +96,9 @@ public:
 
 	void TeleopPeriodic()
 	{
-		//m_drive->RobotMove();
-		m_shooter->Update();
 
-		//		if(m_joy1->GetTrigger()) {
-		//			m_shooter->PneumaticTest(true);
-		//		}
-		//		else {
-		//			m_shooter->PneumaticTest(false);
-		//		}
+		m_drive->RobotMove(); // works
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()

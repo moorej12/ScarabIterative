@@ -24,6 +24,10 @@ class Shooter {
 		Debounce *m_shootButton;
 		Debounce *m_loadButton;
 		Debounce *m_unloadButton;
+		Debounce *m_idleButton;
+		bool m_shooting;
+		bool m_loading;
+		bool m_unloading;
 
 		float m_targetAngle;
 		float m_armSpeed;
@@ -46,5 +50,7 @@ class Shooter {
 		void Update();
 		void Debug();
 		void PneumaticTest(bool status); //Test Code
+		void Init(); //Resets all values to zero
+
 };
 #endif /* SRC_SHOOTER_H_ */

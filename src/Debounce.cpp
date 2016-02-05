@@ -2,7 +2,7 @@
  * Debounce.cpp
  *
  *  Created on: Jan 30, 2016
- *      Author: spaet
+ *      Author: Seth1
  */
 #include "WPIlib.h"
 #include "Debounce.h"

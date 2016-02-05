@@ -17,7 +17,7 @@ Drive::Drive(Joystick *joy1) {
 }
 
 Drive::~Drive() {
-
+	delete m_drive;
 }
 
 //(+) for forwards and (-) for backwards; sets the current
