@@ -58,15 +58,15 @@ Shooter::~Shooter() {
 
 //Yo holmes - This is how you slurp up the dodgeballs
 void Shooter::Load() {
-	if(!BallLoaded()){
-		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);
-		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);
-		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);
-		if(m_ballLoadedButton->Get()) {
-			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);
-			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);
-			m_ballLoaded = true;
-			m_loading = false;
+	if(!BallLoaded()){ // if there is no ball in the robot do all the below
+		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(false);//calls the function Set which sets the solenoid output to false
+		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+		if(m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
+			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
+			m_loading = false;//sets m_loading to false because we are done loading
 		}
 	}
 }
