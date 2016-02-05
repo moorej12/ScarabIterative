@@ -24,6 +24,7 @@ class Shooter {
 		Debounce *m_shootButton;
 		Debounce *m_loadButton;
 		Debounce *m_unloadButton;
+		Debounce *m_idleButton;
 		bool m_shooting;
 		bool m_loading;
 		bool m_unloading;
