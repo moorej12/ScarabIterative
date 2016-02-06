@@ -172,7 +172,7 @@ void Shooter::StateMachine() {
 		}
 }
 
-//Yo holmes - This is how you slurp up the dodgeballs
+//Old Code
 void Shooter::Load() {
 	if(!BallLoaded()){ // if there is no ball in the robot do all the below
 		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
@@ -182,7 +182,6 @@ void Shooter::Load() {
 			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
-			m_loading = false;//sets m_loading to false because we are done loading
 		}
 	}
 }
@@ -233,9 +232,7 @@ void Shooter::Update() {
 //	}
 	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
 	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
-	SmartDashboard::PutBoolean("Loading: ",m_loading);
-	SmartDashboard::PutBoolean("Shooting: ",m_shooting);
-	SmartDashboard::PutBoolean("Unloading: ",m_unloading);
+	SmartDashboard::PutNumber("State: ", m_status);
 
 
 ////Test Code
@@ -255,7 +252,7 @@ void Shooter::Update() {
 //	Debug();
 }
 
-//Hey pal - This is how you throw the ball like a pro
+//Old Code
 void Shooter::Shoot() {
 	if(BallLoaded()) {
 		m_timer->Start();
@@ -271,7 +268,6 @@ void Shooter::Shoot() {
 				m_timer->Stop();
 				m_timer->Reset();
 				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
-				m_shooting = false;
 			}
 		}
 	}
@@ -291,6 +287,7 @@ bool Shooter::BallLoaded() {
 
 //Slowly rotates the gripper wheels to eject the ball.
 //Should only be called when the sensor shows the ball is loaded.
+//Old Code
 void Shooter::Unload(){
 	if(BallLoaded()) {
 		m_timer->Start();
@@ -306,7 +303,6 @@ void Shooter::Unload(){
 				m_timer->Stop();
 				m_timer->Reset();
 				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
-				m_unloading = false;
 			}
 		}
 	}
@@ -343,12 +339,6 @@ void Shooter::Init(){
 	m_targetAngle = 0;
 	m_armSpeed = 0;
 	m_ballLoaded = false;
-	m_shotTime = 0;
-	m_loadTime = 0;
-	m_unloadTime = 0;
-	m_shooting = false;
-	m_loading = false;
-	m_unloading = false;
 	m_lastPressed = false;
 
 }
