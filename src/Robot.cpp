@@ -94,8 +94,8 @@ public:
 
 	void TeleopPeriodic()
 	{
-		m_drive->RobotMove(); // works
-		m_shooter->Update();
+		m_drive->RobotMove();
+//		m_shooter->Update();
 	}
 
 	void TestPeriodic()

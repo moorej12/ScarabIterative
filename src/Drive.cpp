@@ -14,6 +14,7 @@ Drive::Drive(Joystick *joy1) {
 			DRIVE_MOTOR_RIGHT_FRONT_CHANNEL,
 			DRIVE_MOTOR_RIGHT_REAR_CHANNEL);
 	m_joy1 = joy1;
+	m_drive->SetMaxOutput(DRIVE_MAX_SPEED);
 }
 
 Drive::~Drive() {
