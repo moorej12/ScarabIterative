@@ -24,26 +24,17 @@ Shooter::Shooter(Joystick *joy1) {
 	m_ballLoaded = false;
 	m_status = kShooterUNINITIALIZED;
 
-	m_shootButton = new Debounce(m_joy2, 1);
-	m_loadButton = new Debounce(m_joy2, 2);
-	m_unloadButton = new Debounce(m_joy2, 3);
-	m_idleButton = new Debounce(m_joy2, 4);
-	m_loadedButton = new Debounce(m_joy2, 5);
-
-	m_shotTime = 0;
-	m_loadTime = 0;
-	m_unloadTime = 0;
-
-	m_shooting = false;
-	m_loading = false;
-	m_unloading = false;
+	m_shootButton = new Debounce(m_joy2, SHOOTER_SHOOT_BUTTON);
+	m_loadButton = new Debounce(m_joy2, SHOOTER_LOAD_BUTTON);
+	m_unloadButton = new Debounce(m_joy2, SHOOTER_UNLOAD_BUTTON);
+	m_idleButton = new Debounce(m_joy2, SHOOTER_IDLE_BUTTON);
+	m_loadedButton = new Debounce(m_joy2, SHOOTER_LOADED_BUTTON);
 
 	m_timer = new Timer();
 	m_timer->Reset();
 	m_timer->Start();
 
 	m_leftMotorController->SetInverted(true);
-
 	m_ballyLaunchyThingy5064EXTREMEXD1337 = new Solenoid(BALLY_LAUNCHY_THINGY_5064_EXTREME_XD_1337_CHANNEL); //Needs stuff
 	m_lastPressed = false;
 }
@@ -61,36 +52,122 @@ Shooter::~Shooter() {
 
 void Shooter::StateMachine() {
 	switch(m_status) {
-			case kShooterUNINITIALIZED:
 
+			case kShooterUNINITIALIZED:
+				if(BallLoaded()) {
+					m_status = kShooterLOADED;
+				}
+				else {
+					m_status = kShooterIDLE;
+				}
 			break;
+
 
 			case kShooterIDLE:
-
+				Idle();
+				if(m_loadButton->GetPressed()) {
+					m_status = kShooterLOADING;
+				}
 			break;
+
 
 			case kShooterLOADING:
+				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
+				m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+				m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
 
+				if(m_loadButton->GetPressed()) {
+					m_status = kShooterIDLE;
+				}
+				else if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
+					m_status = kShooterLOADED;
+				}
 			break;
+
 
 			case kShooterLOADED:
-
+				Idle(); //calls function to set the motors to idle speed
+				m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
+				if(m_unloadButton->GetPressed()) {
+					m_timer->Reset();
+					m_timer->Start();
+					m_status = kShooterUNLOADING;
+				}
+				else if(m_shootButton->GetPressed()) {
+					m_timer->Reset();
+					m_timer->Start();
+					m_status = kShooterSHOOTING;
+				}
 			break;
+
 
 			case kShooterUNLOADING:
-
+				m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
+				m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
+				/*Allows operator to press unloadButton again after 0.5
+				seconds to activate pneumatic and go to UNLOAD */
+				if(m_timer->Get() >= SHOOTER_UNLOAD_SPOOL_TIME) {
+					if(m_unloadButton->GetPressed()) {
+						m_timer->Stop();
+						m_timer->Reset();
+						m_timer->Start();
+						m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+						m_status = kShooterUNLOAD;
+					}
+				} else if (m_idleButton->GetPressed()) {
+					m_timer->Stop();
+					m_timer->Reset();
+					m_timer->Start();
+					m_status = kShooterLOADED;
+				}
 			break;
+
 
 			case kShooterSHOOTING:
-
+				m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
+				m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+				/*Allows operator to press shootButton again after 2.5
+				seconds to activate pneumatic and go to SHOOT */
+				if(m_timer->Get() >= SHOOTER_SHOOT_SPOOL_TIME) {
+					if(m_shootButton->GetPressed()) {
+						m_timer->Stop();
+						m_timer->Reset();
+						m_timer->Start();
+						m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+						m_status = kShooterSHOOT;
+					}
+				} else if (m_idleButton->GetPressed()) {
+					m_timer->Stop();
+					m_timer->Reset();
+					m_timer->Start();
+					m_status = kShooterLOADED;
+				}
 			break;
+
 
 			case kShooterUNLOAD:
-
+				if(m_timer->Get() >= SHOOTER_PNEUMATIC_SPOOL_TIME) {
+					m_ballLoaded = false;
+					Idle();
+					m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+					m_timer->Start();
+					m_timer->Reset();
+					m_timer->Stop();
+					m_status = kShooterIDLE;
+				}
 			break;
 
-			case kShooterSHOOT:
 
+			case kShooterSHOOT:
+				if(m_timer->Get() >= SHOOTER_PNEUMATIC_SPOOL_TIME) {
+					m_ballLoaded = false;
+					Idle();
+					m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+					m_timer->Start();
+					m_timer->Reset();
+					m_timer->Stop();
+					m_status = kShooterIDLE;
+				}
 			break;
 		}
 }
@@ -123,37 +200,37 @@ void Shooter::AdjustPosition(float armSpeed) {
 void Shooter::Update() {
 	//High Quality 4k 144 FPS Thigns and st0ff
 	StateMachine();
-
-	//Stops all other functions
-	if(m_idleButton->GetPressed()) {
-		m_shooting = false;
-		m_loading = false;
-		m_unloading = false;
-		Idle();
-	}
-
 	if(m_loadedButton->GetPressed()) {
 		m_ballLoaded = true;
 	}
-	if(m_shootButton->GetPressed() && BallLoaded()) {
-		m_shooting = true;
 
-	}
-	if(m_shooting) {
-		Shoot();
-	}
-	if(m_loadButton->GetPressed() && (!BallLoaded())) {
-		m_loading = true;
-	}
-	if(m_loading) {
-		Load();
-	}
-	if(m_unloadButton->GetPressed() && BallLoaded()) {
-		m_unloading = true;
-	}
-	if(m_unloading) {
-		Unload();
-	}
+//Replaced by state machine
+//	//Stops all other functions
+//	if(m_idleButton->GetPressed()) {
+//		m_shooting = false;
+//		m_loading = false;
+//		m_unloading = false;
+//		Idle();
+//	}
+//
+//	if(m_shootButton->GetPressed() && BallLoaded()) {
+//		m_shooting = true;
+//	}
+//	if(m_shooting) {
+//		Shoot();
+//	}
+//	if(m_loadButton->GetPressed() && (!BallLoaded())) {
+//		m_loading = true;
+//	}
+//	if(m_loading) {
+//		Load();
+//	}
+//	if(m_unloadButton->GetPressed() && BallLoaded()) {
+//		m_unloading = true;
+//	}
+//	if(m_unloading) {
+//		Unload();
+//	}
 	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
 	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
 	SmartDashboard::PutBoolean("Loading: ",m_loading);

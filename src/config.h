@@ -15,9 +15,10 @@
 #define SHOOTER_LOAD_SPEED -0.45
 #define DRIVE_MAX_SPEED 0.5
 
-//Shooter Timing... this is in seconds!!
-#define SHOOTER_SHOOT_CANCELLATION_TIME_MS .7
-#define SHOOTER_PLATFORM_CANCELLATION_TIME_MS .5
+//Shooter Timing in seconds  ***NOTE: play with times to make as short and efficient as possible!***
+#define SHOOTER_UNLOAD_SPOOL_TIME 0.5
+#define SHOOTER_SHOOT_SPOOL_TIME 2.5
+#define SHOOTER_PNEUMATIC_SPOOL_TIME 0.5
 
 //Motor Channels PWM
 #define LEFT_ARMS_MOTOR_CHANNEL 0
@@ -41,7 +42,11 @@
 
 //Joystick
 	//Shooter buttons
-
+#define SHOOTER_SHOOT_BUTTON 1
+#define SHOOTER_LOAD_BUTTON 2
+#define SHOOTER_UNLOAD_BUTTON 3
+#define SHOOTER_IDLE_BUTTON 4
+#define SHOOTER_LOADED_BUTTON 5
 
 	//Arms buttons
 

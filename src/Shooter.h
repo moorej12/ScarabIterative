@@ -36,18 +36,12 @@ class Shooter {
 		Solenoid *m_ballyLaunchyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
 		Timer *m_timer;
 		Status m_status;
-		double m_shotTime;
-		double m_unloadTime;
-		double m_loadTime;
 		bool m_lastPressed;
 		Debounce *m_shootButton;
 		Debounce *m_loadButton;
 		Debounce *m_unloadButton;
 		Debounce *m_idleButton;
 		Debounce *m_loadedButton;
-		bool m_shooting;
-		bool m_loading;
-		bool m_unloading;
 
 		float m_targetAngle;
 		float m_armSpeed;
