@@ -22,6 +22,7 @@ Shooter::Shooter(Joystick *joy1) {
 	m_armSpeed = 0;
 	m_ballLoadedButton = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
 	m_ballLoaded = false;
+	m_status = kShooterUNINITIALIZED;
 
 	m_shootButton = new Debounce(m_joy2, 1);
 	m_loadButton = new Debounce(m_joy2, 2);
@@ -58,6 +59,42 @@ Shooter::~Shooter() {
 	delete m_ballyLaunchyThingy5064EXTREMEXD1337;
 }
 
+void Shooter::StateMachine() {
+	switch(m_status) {
+			case kShooterUNINITIALIZED:
+
+			break;
+
+			case kShooterIDLE:
+
+			break;
+
+			case kShooterLOADING:
+
+			break;
+
+			case kShooterLOADED:
+
+			break;
+
+			case kShooterUNLOADING:
+
+			break;
+
+			case kShooterSHOOTING:
+
+			break;
+
+			case kShooterUNLOAD:
+
+			break;
+
+			case kShooterSHOOT:
+
+			break;
+		}
+}
+
 //Yo holmes - This is how you slurp up the dodgeballs
 void Shooter::Load() {
 	if(!BallLoaded()){ // if there is no ball in the robot do all the below
@@ -84,6 +121,8 @@ void Shooter::AdjustPosition(float armSpeed) {
 //This runs every 20 ms
 //Put all stuff here
 void Shooter::Update() {
+	//High Quality 4k 144 FPS Thigns and st0ff
+	StateMachine();
 
 	//Stops all other functions
 	if(m_idleButton->GetPressed()) {

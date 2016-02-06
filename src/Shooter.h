@@ -12,11 +12,30 @@
 #include "Debounce.h"
 
 class Shooter {
+	public:
+		Shooter(Joystick *joy1);
+		~Shooter();
+		typedef enum {kShooterUNINITIALIZED, kShooterIDLE, kShooterLOADING, kShooterLOADED, kShooterUNLOADING, kShooterSHOOTING, kShooterUNLOAD, kShooterSHOOT} Status;
+		void StateMachine();
+		void Load();
+		void SetAngle(float m_targetAngle);
+		void AdjustPosition(float m_armSpeed);
+		void Shoot();
+		void Idle();
+		bool BallLoaded();
+		void Unload();
+		bool CanLoad();
+		bool CanShoot();
+		void Update();
+		void Debug();
+		void PneumaticTest(bool status); //Test Code
+		void Init(); //Resets all values to zero
 	private:
 		VictorSP *m_leftMotorController;
 		VictorSP *m_rightMotorController;
 		Solenoid *m_ballyLaunchyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
 		Timer *m_timer;
+		Status m_status;
 		double m_shotTime;
 		double m_unloadTime;
 		double m_loadTime;
@@ -35,23 +54,6 @@ class Shooter {
 		DigitalInput *m_ballLoadedButton;
 		bool m_ballLoaded;
 		Joystick *m_joy2;
-
-	public:
-		Shooter(Joystick *joy1);
-		~Shooter();
-		void Load();
-		void SetAngle(float m_targetAngle);
-		void AdjustPosition(float m_armSpeed);
-		void Shoot();
-		void Idle();
-		bool BallLoaded();
-		void Unload();
-		bool CanLoad();
-		bool CanShoot();
-		void Update();
-		void Debug();
-		void PneumaticTest(bool status); //Test Code
-		void Init(); //Resets all values to zero
 
 };
 #endif /* SRC_SHOOTER_H_ */
