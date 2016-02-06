@@ -84,29 +84,32 @@ void Shooter::AdjustPosition(float armSpeed) {
 //This runs every 20 ms
 //Put all stuff here
 void Shooter::Update() {
+
 	//Stops all other functions
-	if(/*m_idleButton->GetPressed()*/ m_joy2->GetRawButton(4)) {
+	if(m_idleButton->GetPressed()) {
 		m_shooting = false;
 		m_loading = false;
 		m_unloading = false;
 		Idle();
 	}
-	if(/*m_loadedButton->GetPressed()*/ m_joy2->GetRawButton(5)) {
+
+	if(m_loadedButton->GetPressed()) {
 		m_ballLoaded = true;
 	}
-	if(/*m_shootButton->GetPressed()*/ BallLoaded() && m_joy2->GetTrigger()) {
+	if(m_shootButton->GetPressed() && BallLoaded()) {
 		m_shooting = true;
+
 	}
 	if(m_shooting) {
 		Shoot();
 	}
-	if(/*m_loadButton->GetPressed()*/ (!BallLoaded()) && m_joy2->GetRawButton(2)) {
+	if(m_loadButton->GetPressed() && (!BallLoaded())) {
 		m_loading = true;
 	}
 	if(m_loading) {
 		Load();
 	}
-	if(/*m_unloadButton->GetPressed()*/ BallLoaded() && m_joy2->GetRawButton(3)) {
+	if(m_unloadButton->GetPressed() && BallLoaded()) {
 		m_unloading = true;
 	}
 	if(m_unloading) {
@@ -199,6 +202,7 @@ bool Shooter::CanLoad(/*not implemented*/){
 	//To return true:
 	//-Piston Extended == False
 	//-Touch Sensor == False
+	return false;
 }
 
 //Returns a bool representing whether or not the shooter is able to shoot,
@@ -206,6 +210,7 @@ bool Shooter::CanLoad(/*not implemented*/){
 bool Shooter::CanShoot(/*not implemented*/){
 //To return true:
 //Touch Sensor == True
+	return false;
 }
 
 void Shooter::Debug() {

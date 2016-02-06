@@ -11,30 +11,62 @@
 Debounce::Debounce(Joystick *joy1, int button){
 	m_joy = joy1;
 	m_button = button;
+	m_counter = 0;
+	m_lastValue = false;
+	m_returnedTrue = false;
+
 }
-bool Debounce::GetPressed(){
+
+Debounce::~Debounce() {
+
+}
+
+void Debounce::Init() {
+	m_counter = 0;
+	m_lastValue = false;
+	m_returnedTrue = false;
+
+}
+
+bool Debounce::GetPressed() {
 	bool currentReading = m_joy->GetRawButton(m_button);
-	if(currentReading == m_lastValue){
-		m_counter++;
+	SmartDashboard::PutBoolean("Button Value", currentReading );
+
+
+	//checks if there has been no change
+	if(currentReading == m_lastValue) {
+		if(m_counter <= 4) {
+			m_counter++;
+		}
 	}
-	else{
+
+	//if there is no change...
+	else {
 		m_lastValue = currentReading;
 		m_counter = 0;
 	}
-	if(m_counter > 4){
-		if(currentReading){
-			if(m_returnedTrue){
+
+	//Prints various values to the console
+		printf("\n m_counter: %d  currentReading: %d  m_lastValue:  %d", m_counter, currentReading, m_lastValue);
+
+	//there has been a change so let roughly 80 ms pass... prevents sparking and false mini-reads
+	if(m_counter > 4) {
+		if(currentReading) { //if we have button input
+			if(m_returnedTrue) { //make sure that true is only returned once
 				return false;
 			}
-			else{
+			else {
 				m_returnedTrue = true;
+				printf("True!");
 				return true;
 			}
 		}
-		else{
+		else {
+			m_returnedTrue = false;
 			return false;
 		}
 	} else {
+		m_returnedTrue = false;
 		return false;
 	}
 }
