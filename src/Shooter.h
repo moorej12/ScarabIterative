@@ -46,6 +46,8 @@ class Shooter {
 
 		float m_targetAngle;
 		DigitalInput *m_ballLoadedButton;
+		DigitalInput *m_maxAngleButton;
+		DigitalInput *m_minAngleButton;
 		bool m_ballLoaded;
 		Joystick *m_joy2;
 

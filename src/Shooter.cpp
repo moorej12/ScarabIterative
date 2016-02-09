@@ -22,6 +22,9 @@ Shooter::Shooter(Joystick *joy1) {
 
 	m_targetAngle = 0;
 	m_ballLoadedButton = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
+	m_maxAngleButton = new DigitalInput(SHOOTER_MAX_ANGLE_SENSOR_CHANNEL);
+	m_minAngleButton = new DigitalInput(SHOOTER_MIN_ANGLE_SENSOR_CHANNEL);
+
 	m_ballLoaded = false;
 	m_status = kShooterUNINITIALIZED;
 
