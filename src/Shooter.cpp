@@ -190,8 +190,10 @@ void Shooter::Load() {
 	}
 }
 
-void Shooter::ShooterAngle(float m_targetAngle) {
+void Shooter::ShooterAngle(float targetAngle) {
+	m_targetAngle = targetAngle;
 	m_angleMotorController->Set(m_joy2->GetY());
+
 }
 
 //This runs every 20 ms
