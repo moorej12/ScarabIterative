@@ -19,7 +19,7 @@ class Shooter {
 		void StateMachine();
 		void Load();
 		void SetAngle(float m_targetAngle);
-		void AdjustPosition(float m_armSpeed);
+		void AdjustPosition();
 		void Shoot();
 		void Idle();
 		bool BallLoaded();
@@ -33,6 +33,7 @@ class Shooter {
 	private:
 		VictorSP *m_leftMotorController;
 		VictorSP *m_rightMotorController;
+		VictorSP *m_angleMotorController;
 		Solenoid *m_ballyLaunchyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
 		Timer *m_timer;
 		Status m_status;
@@ -44,7 +45,6 @@ class Shooter {
 		Debounce *m_loadedButton;
 
 		float m_targetAngle;
-		float m_armSpeed;
 		DigitalInput *m_ballLoadedButton;
 		bool m_ballLoaded;
 		Joystick *m_joy2;

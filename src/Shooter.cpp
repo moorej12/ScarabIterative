@@ -18,8 +18,9 @@ Shooter::Shooter(Joystick *joy1) {
 	m_joy2 = joy1;
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
+	m_angleMotorController = new VictorSP(SHOOTER_RAISE_AND_LOWER_CHANNEL);
+
 	m_targetAngle = 0;
-	m_armSpeed = 0;
 	m_ballLoadedButton = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
 	m_ballLoaded = false;
 	m_status = kShooterUNINITIALIZED;
@@ -190,8 +191,8 @@ void Shooter::SetAngle(float targetAngle) {
 	m_targetAngle = targetAngle;
 }
 
-void Shooter::AdjustPosition(float armSpeed) {
-	m_armSpeed = armSpeed;
+void Shooter::AdjustPosition() {
+	m_joy2->GetY();
 }
 
 //This runs every 20 ms
@@ -337,7 +338,6 @@ void Shooter::PneumaticTest(bool status) { //Test Code
 void Shooter::Init(){
 //resets all values to zero
 	m_targetAngle = 0;
-	m_armSpeed = 0;
 	m_ballLoaded = false;
 	m_lastPressed = false;
 
