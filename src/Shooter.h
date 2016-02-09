@@ -18,8 +18,7 @@ class Shooter {
 		typedef enum {kShooterUNINITIALIZED, kShooterIDLE, kShooterLOADING, kShooterLOADED, kShooterUNLOADING, kShooterSHOOTING, kShooterUNLOAD, kShooterSHOOT} Status;
 		void StateMachine();
 		void Load();
-		void SetAngle(float m_targetAngle);
-		void AdjustPosition();
+		void ShooterAngle(float m_targetAngle);
 		void Shoot();
 		void Idle();
 		bool BallLoaded();
