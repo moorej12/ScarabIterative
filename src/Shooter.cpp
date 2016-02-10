@@ -19,6 +19,8 @@ Shooter::Shooter(Joystick *joy1) {
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_angleMotorController = new VictorSP(SHOOTER_RAISE_AND_LOWER_CHANNEL);
+	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 60, 30);
+	m_shooterPIDController = new PIDController(1, 0, 0, m_shooterPotentiometer, m_angleMotorController);
 
 	m_targetAngle = 0;
 	m_ballLoadedButton = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
@@ -33,6 +35,11 @@ Shooter::Shooter(Joystick *joy1) {
 	m_unloadButton = new Debounce(m_joy2, SHOOTER_UNLOAD_BUTTON);
 	m_idleButton = new Debounce(m_joy2, SHOOTER_IDLE_BUTTON);
 	m_loadedButton = new Debounce(m_joy2, SHOOTER_LOADED_BUTTON);
+	m_shootAngleButton = new Debounce(m_joy2, SHOOTER_SHOOT_ANGLE_BUTTON);
+	m_shooterLowAngleButton = new Debounce(m_joy2, SHOOTER_LOW_ANGLE_BUTTON);
+	m_shooterHighAngleButton = new Debounce(m_joy2, SHOOTER_HIGH_ANGLE_BUTTON);
+	m_shooterLittleLowAngleButton = new Debounce(m_joy2, SHOOTER_LITTLELOW_ANGLE_BUTTON);
+	m_shooterLittleHighAngleButton = new Debounce(m_joy2, SHOOTER_LITTLEHIGH_ANGLE_BUTTON);
 
 	m_timer = new Timer();
 	m_timer->Reset();
@@ -51,7 +58,19 @@ Shooter::~Shooter() {
 	delete m_timer;
 	delete m_leftMotorController;
 	delete m_rightMotorController;
+	delete m_angleMotorController;
 	delete m_ballyLaunchyThingy5064EXTREMEXD1337;
+	delete m_shooterPotentiometer;
+	delete m_maxAngleButton;
+	delete m_minAngleButton;
+	delete m_shooterPIDController;
+	delete m_loadedButton;
+	delete m_idleButton;
+	delete m_shootAngleButton;
+	delete m_shooterLowAngleButton;
+	delete m_shooterHighAngleButton;
+	delete m_shooterLittleLowAngleButton;
+	delete m_shooterLittleHighAngleButton;
 }
 
 void Shooter::StateMachine() {
@@ -177,7 +196,7 @@ void Shooter::StateMachine() {
 }
 
 //Old Code
-void Shooter::Load() {
+//void Shooter::Load() {
 //	if(!BallLoaded()){ // if there is no ball in the robot do all the below
 //		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
 //		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
@@ -186,9 +205,9 @@ void Shooter::Load() {
 //			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 //			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
 //			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
-		}
-	}
-}
+//		}
+//	}
+//}
 
 void Shooter::ShooterAngle(float targetAngle) {
 	m_targetAngle = targetAngle;

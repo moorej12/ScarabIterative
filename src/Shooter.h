@@ -34,6 +34,8 @@ class Shooter {
 		VictorSP *m_rightMotorController;
 		VictorSP *m_angleMotorController;
 		Solenoid *m_ballyLaunchyThingy5064EXTREMEXD1337; // DO NOT REFACTOR - CRITICAL NAME SCHEME (Will corrupt RoboRio and C:/ if changed)
+		AnalogPotentiometer *m_shooterPotentiometer;
+		PIDController *m_shooterPIDController;
 		Timer *m_timer;
 		Status m_status;
 		bool m_lastPressed;
@@ -42,6 +44,11 @@ class Shooter {
 		Debounce *m_unloadButton;
 		Debounce *m_idleButton;
 		Debounce *m_loadedButton;
+		Debounce *m_shootAngleButton;
+		Debounce *m_shooterLowAngleButton;
+		Debounce *m_shooterHighAngleButton;
+		Debounce *m_shooterLittleLowAngleButton;
+		Debounce *m_shooterLittleHighAngleButton;
 
 		float m_targetAngle;
 		DigitalInput *m_ballLoadedButton;
