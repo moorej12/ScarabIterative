@@ -211,10 +211,23 @@ void Shooter::StateMachine() {
 
 void Shooter::ShooterAngle(float targetAngle) {
 	m_targetAngle = targetAngle;
-
-
-
-
+	m_shooterPIDController->SetSetpoint((m_joy2->GetY() + 1) * 30);
+	m_shooterPIDController->Enable();
+	if(m_shootAngleButton) {
+		m_shooterPIDController->SetSetpoint(45);
+	}
+	if(m_shooterLowAngleButton) {
+		m_shooterPIDController->SetSetpoint(1);
+	}
+	if(m_shooterHighAngleButton) {
+		m_shooterPIDController->SetSetpoint(59);
+	}
+	if(m_shooterLittleLowAngleButton) {
+		m_shooterPIDController->SetSetpoint(10);
+	}
+	if(m_shooterLittleHighAngleButton) {
+		m_shooterPIDController->SetSetpoint(50);
+	}
 
 	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
 
