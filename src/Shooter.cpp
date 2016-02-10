@@ -178,21 +178,28 @@ void Shooter::StateMachine() {
 
 //Old Code
 void Shooter::Load() {
-	if(!BallLoaded()){ // if there is no ball in the robot do all the below
-		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
-		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
-		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
-		if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
-			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
-			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
-			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
+//	if(!BallLoaded()){ // if there is no ball in the robot do all the below
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
+//		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+//		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+//		if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
+//			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+//			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+//			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
 		}
 	}
 }
 
 void Shooter::ShooterAngle(float targetAngle) {
 	m_targetAngle = targetAngle;
-	m_angleMotorController->Set(m_joy2->GetY());
+
+
+
+
+
+	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
+
+
 
 }
 
