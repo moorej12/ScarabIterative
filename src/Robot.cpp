@@ -4,6 +4,7 @@
 #include "Arms.h"
 #include "Drive.h"
 #include "Shooter.h"
+#include "Autonomous.h"
 
 class Robot: public IterativeRobot
 {
@@ -18,14 +19,22 @@ private:
 	Drive *m_drive;
 
 	Shooter *m_shooter;
+	Autonomous *m_autonomous;
+	Arms *m_arms;
 
 	Compressor *m_compressor;
+
+	AnalogGyro *m_xAxisGyro;
+	AnalogGyro *m_yAxisGyro;
+
+	Encoder *m_rightSideEncoder;
+	Encoder *m_leftSideEncoder;
+
 
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
-
 
 
 public:
@@ -38,6 +47,15 @@ public:
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
+
+		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
+		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
+		m_autonomous = new Autonomous(Drive m_drive, Shooter m_shooter, Arms m_arms, AnalogGyro m_xAxisGyro, AnalogGyro m_yAxisGyro, Encoder m_rightSideEncoder, Encoder m_leftSideEncoder);
+		m_arms = new Arms();
+
+		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B);
+		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B);
+
 	}
 
 	~Robot() {
@@ -46,6 +64,11 @@ public:
 		delete m_drive;
 		delete m_shooter;
 		delete m_compressor;
+		delete m_xAxisGyro;
+		delete m_yAxisGyro;
+		delete m_rightSideEncoder;
+		delete m_leftSideEncoder;
+
 	}
 
 	void RobotInit()
@@ -54,7 +77,18 @@ public:
 		chooser->AddDefault(autoNameDefault, (void*)&autoNameDefault);
 		chooser->AddObject(autoNameCustom, (void*)&autoNameCustom);
 		SmartDashboard::PutData("Auto Modes", chooser);
+
 		m_compressor->Start();
+
+		m_rightSideEncoder->SetMaxPeriod(ENCODER_SET_MAX_PERIOD);
+		m_rightSideEncoder->SetMinRate(ENCODER_SET_MIN_RATE);
+		m_rightSideEncoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
+		m_rightSideEncoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
+
+		m_leftSideEncoder->SetMaxPeriod(ENCODER_SET_MAX_PERIOD);
+		m_leftSideEncoder->SetMinRate(ENCODER_SET_MIN_RATE);
+		m_leftSideEncoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
+		m_leftSideEncoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
 	}
 
 
@@ -69,24 +103,13 @@ public:
 	 */
 	void AutonomousInit()
 	{
-		autoSelected = *((std::string*)chooser->GetSelected());
-		//std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
-		std::cout << "Auto selected: " << autoSelected << std::endl;
-
-		if(autoSelected == autoNameCustom){
-			//Custom Auto goes here
-		} else {
-			//Default Auto goes here
-		}
+		m_autonomous->AutonomousInit();
 	}
 
 	void AutonomousPeriodic()
 	{
-		if(autoSelected == autoNameCustom){
-			//Custom Auto goes here
-		} else {
-			//Default Auto goes here
-		}
+		m_autonomous->BeginDrive();
+
 	}
 
 	void TeleopInit()
@@ -97,7 +120,7 @@ public:
 	void TeleopPeriodic()
 	{
 //		m_drive->RobotMove();
-		m_shooter->Update();
+//		m_shooter->Update();
 	}
 
 	void TestPeriodic()

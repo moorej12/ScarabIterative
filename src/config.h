@@ -31,6 +31,21 @@
 #define DRIVE_MOTOR_LEFT_REAR_CHANNEL 7
 #define DRIVE_MOTOR_LEFT_FRONT_CHANNEL 8
 
+//Gyro Analog Channels... must be 0 or 1!!
+#define X_GYRO_CHANNEL 0
+#define Y_GYRO_CHANNEL 1
+
+//Encoder DIO Channels
+#define ENCODER_RIGHT_SIDE_CHANNEL_A 0
+#define ENCODER_RIGHT_SIDE_CHANNEL_B 1
+#define ENCODER_LEFT_SIDE_CHANNEL_A 2
+#define ENCODER_LEFT_SIDE_CHANNEL_B 3
+#define ENCODER_SET_MAX_PERIOD .1		//The maximum period (in seconds) where the device is still considered moving
+#define ENCODER_SET_MIN_RATE 10			//Sets the minimum rate before the device is considered stopped
+#define ENCODER_SET_DISTANCE_PER_PULSE 5		//Sets the scale factor between pulses and distance
+#define ENCODER_SET_SAMPLES_PER_AVERAGE 7		//Sets the number of samples to average when determining the period
+
+
 //PID crap
 #define SHOOTER_SLIDE_POTENTIOMETER 0
 
