@@ -50,6 +50,7 @@ public:
 
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
 //		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
+		m_yAxisGyro = NULL;
 		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder);
 		m_arms = new Arms();
 
