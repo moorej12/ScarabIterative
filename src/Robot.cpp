@@ -20,6 +20,7 @@ private:
 	Shooter *m_shooter;
 
 	Compressor *m_compressor;
+	Ultrasonic *m_ultrasonicSensor;
 
 	SendableChooser *chooser;
 	const std::string autoNameDefault = "Default";
@@ -38,7 +39,10 @@ public:
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
-	}
+		m_ultrasonicSensor = new Ultrasonic(3);
+
+		}
+
 
 	~Robot() {
 		delete m_joy1;
@@ -46,6 +50,7 @@ public:
 		delete m_drive;
 		delete m_shooter;
 		delete m_compressor;
+		delete m_ultrasonicSensor;
 	}
 
 	void RobotInit()
@@ -104,6 +109,6 @@ public:
 	{
 		lw->Run();
 	}
-};
 
+};
 START_ROBOT_CLASS(Robot)
