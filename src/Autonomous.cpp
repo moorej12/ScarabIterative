@@ -10,8 +10,8 @@
 
 Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder) {
 
-	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
-
+//	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
+//
 	m_xAxisGyro = xGyro;
 	m_yAxisGyro = yGyro;
 
@@ -80,6 +80,7 @@ void Autonomous::BeginDrive() {
 
 	m_drive->AutoRobotHoldPosition(0, -xAngle * CORRECTION_SPEED);
 	//m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
+
 
 	printf("\n The angle is: %f", xAngle);
 
