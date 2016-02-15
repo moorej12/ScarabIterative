@@ -15,16 +15,24 @@ Drive::Drive(Joystick *joy1) {
 			DRIVE_MOTOR_RIGHT_REAR_CHANNEL);
 	m_joy1 = joy1;
 	m_drive->SetMaxOutput(DRIVE_MAX_SPEED);
+	m_outputMagnitude = 0;
+	m_curve = 0;
 }
 
 Drive::~Drive() {
 	delete m_drive;
 }
 
+void Drive::ManualRobotDrive() {
+	m_drive->ArcadeDrive(m_joy1->GetY(), m_joy1->GetZ(), true);
+}
+
 //(+) for forwards and (-) for backwards; sets the current
 //velocity for the robot
-void Drive::RobotMove() {
-	m_drive->ArcadeDrive(m_joy1->GetY(), m_joy1->GetZ(), true);
+void Drive::AutoRobotDrive(float outputMagnitude, float curve) {
+	m_outputMagnitude = outputMagnitude;
+	m_curve = curve;
+	m_drive->Drive(outputMagnitude, curve);
 }
 
 //put in power to actively stop the movement of the robot

@@ -8,7 +8,7 @@
 #include "Autonomous.h"
 
 
-Autonomous::Autonomous(RobotDrive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder) {
+Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder) {
 
 	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
 
@@ -77,9 +77,9 @@ void Autonomous::AutonomousCompare() {
 void Autonomous::BeginDrive() {
 
 	static const float kP = 0.03;
-	float angle = m_xAxisGyro->GetAngle(); // get heading
+	float xAngle = m_xAxisGyro->GetAngle(); // get heading
 
-	m_drive->Drive(-0.2, -angle * kP); // turn to correct heading
+	m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
 
 }
 

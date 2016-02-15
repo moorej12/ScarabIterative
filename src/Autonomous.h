@@ -26,7 +26,7 @@
 class Autonomous {
 
 	public:
-		Autonomous(RobotDrive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder);
+		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder);
 		~Autonomous();
 		void AutonomousInit();
 		void AutonomousCompare();
@@ -36,7 +36,7 @@ class Autonomous {
 		double m_autonomousType;
 		AnalogGyro *m_xAxisGyro;
 		AnalogGyro *m_yAxisGyro;
-		RobotDrive *m_drive;
+		Drive *m_drive;
 		Encoder *m_rightSideEncoder;
 		Encoder *m_leftSideEncoder;
 
