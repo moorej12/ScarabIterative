@@ -13,11 +13,17 @@ class Drive {
 		RobotDrive *m_drive;
 		Joystick *m_joy1;
 		Joystick *m_dance1;
+		float m_outputMagnitude;
+		float m_curve;
+		float m_moveValue;
+		float m_rotateValue;
 
 	public:
 		Drive(Joystick *joy1);
 		~Drive();
-		void RobotMove();
+		void ManualRobotDrive();
+		void AutoRobotDrive(float outputMagnitude, float curve);
+		void AutoRobotHoldPosition(float moveValue, float rotateValue);
 		void RobotActiveStop();
 };
 
