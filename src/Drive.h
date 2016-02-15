@@ -15,12 +15,15 @@ class Drive {
 		Joystick *m_dance1;
 		float m_outputMagnitude;
 		float m_curve;
+		float m_moveValue;
+		float m_rotateValue;
 
 	public:
 		Drive(Joystick *joy1);
 		~Drive();
 		void ManualRobotDrive();
 		void AutoRobotDrive(float outputMagnitude, float curve);
+		void AutoRobotHoldPosition(float moveValue, float rotateValue);
 		void RobotActiveStop();
 };
 

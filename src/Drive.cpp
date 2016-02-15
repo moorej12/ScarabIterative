@@ -17,6 +17,8 @@ Drive::Drive(Joystick *joy1) {
 	m_drive->SetMaxOutput(DRIVE_MAX_SPEED);
 	m_outputMagnitude = 0;
 	m_curve = 0;
+	m_moveValue = 0;
+	m_rotateValue = 0;
 }
 
 Drive::~Drive() {
@@ -33,6 +35,14 @@ void Drive::AutoRobotDrive(float outputMagnitude, float curve) {
 	m_outputMagnitude = outputMagnitude;
 	m_curve = curve;
 	m_drive->Drive(outputMagnitude, curve);
+}
+
+void Drive::AutoRobotHoldPosition(float moveValue, float rotateValue) {
+	m_moveValue = moveValue;
+	m_rotateValue = rotateValue;
+
+	m_drive->ArcadeDrive(moveValue, rotateValue);
+
 }
 
 //put in power to actively stop the movement of the robot
