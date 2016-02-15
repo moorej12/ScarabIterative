@@ -49,7 +49,7 @@ public:
 		m_compressor->SetClosedLoopControl(true);
 
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
-		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
+//		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder);
 		m_arms = new Arms();
 
@@ -110,11 +110,12 @@ public:
 	{
 		m_autonomous->BeginDrive();
 
+
 	}
 
 	void TeleopInit()
 	{
-
+		//put all init functions here
 	}
 
 	void TeleopPeriodic()
@@ -130,3 +131,4 @@ public:
 };
 
 START_ROBOT_CLASS(Robot)
+

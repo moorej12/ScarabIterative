@@ -76,10 +76,13 @@ void Autonomous::AutonomousCompare() {
 //Functions that can be for any gate type
 void Autonomous::BeginDrive() {
 
+
 	static const float kP = 0.03;
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
 
 	m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
+
+	printf("\n The angle is: %f", xAngle);
 
 }
 
