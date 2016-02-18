@@ -51,7 +51,7 @@ public:
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
 
-		m_ultrasonicSensor = new Ultrasonic(3);
+		m_ultrasonicSensor = new Ultrasonic(4,3);
 
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
 //		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);

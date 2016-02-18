@@ -39,12 +39,5 @@ void Arms::Init() {
 	//Resets all values to zero
 	m_armAngle = 0;
 }
-void Arms::ArmsAngle(/*float targetAngle*/) {
-	m_armsPIDController->Enable();
-	m_armsPIDController->SetOutputRange(-0.5, 0.5);
-	if(m_armsAngleButton->GetPressed()) {
-		m_armsPIDController->SetSetpoint(45);
-	}
-	}
 
 	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
