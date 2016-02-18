@@ -24,6 +24,7 @@ private:
 	Arms *m_arms;
 
 	Compressor *m_compressor;
+	Ultrasonic *m_ultrasonicSensor;
 
 	AnalogGyro *m_xAxisGyro;
 	AnalogGyro *m_yAxisGyro;
@@ -32,6 +33,7 @@ private:
 	Encoder *m_leftSideEncoder;
 
 	SendableChooserInt *m_autoChooser;
+	Timer *m_timer;
 
 	int m_autoMode;
 
@@ -52,16 +54,20 @@ public:
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
 
+		m_ultrasonicSensor = new Ultrasonic(4,3);
+
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
-//		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
-		m_yAxisGyro = NULL;
-		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder);
+		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 	    m_autoChooser = new SendableChooserInt();
 		m_autoMode = -1;
 		m_arms = new Arms();
 
+		m_timer = new Timer();
 		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B);
 		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B);
+		m_arms = new Arms();
+		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder, m_ultrasonicSensor);
+
 
 	}
 
@@ -71,10 +77,13 @@ public:
 		delete m_drive;
 		delete m_shooter;
 		delete m_compressor;
+		delete m_ultrasonicSensor;
 		delete m_xAxisGyro;
 		delete m_yAxisGyro;
 		delete m_rightSideEncoder;
 		delete m_leftSideEncoder;
+		delete m_autonomous;
+		delete m_arms;
 	}
 
 	void RobotInit()
@@ -132,7 +141,7 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->RobotMove();
+//		m_drive->ManualRobotDrive();
 //		m_shooter->Update();
 	}
 
@@ -140,7 +149,8 @@ public:
 	{
 		lw->Run();
 	}
-};
 
+
+};
 START_ROBOT_CLASS(Robot)
 

@@ -26,12 +26,15 @@
 class Autonomous {
 
 	public:
-		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder);
+		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder, Ultrasonic *ultrasonic);
 		~Autonomous();
 		void AutonomousInit(int autoMode);
 		void AutonomousCompare();
 		void BeginDrive();
 		void SetMode(int mode);
+		void Correction();
+		typedef enum {kAutonomousUNINITIALIZED, kAutonomousDRIVING, kAutonomousROUGHTERRAIN, kAutonomousPORTCULLIS, kAutonomousROCKWALL, kAutonomousMOAT, kAutonomousTEETERTOTTER, kAutonomousRAMPARTS, kAutonomousLOWBAR} Stage;
+
 	private:
 
 		double m_autonomousType;
@@ -40,7 +43,9 @@ class Autonomous {
 		Drive *m_drive;
 		Encoder *m_rightSideEncoder;
 		Encoder *m_leftSideEncoder;
-
+		Ultrasonic *m_ultrasonicSensor;
+		Stage m_stage;
+		Timer *m_timer;
 
 };
 
