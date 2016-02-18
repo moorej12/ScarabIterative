@@ -26,9 +26,8 @@ Autonomous::~Autonomous() {
 
 }
 
-void Autonomous::AutonomousInit() {
-
-	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
+void Autonomous::AutonomousInit(int autoMode) {
+	m_autonomousType = autoMode;
 	m_xAxisGyro->Reset();
 
 }

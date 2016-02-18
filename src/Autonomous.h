@@ -28,9 +28,10 @@ class Autonomous {
 	public:
 		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder);
 		~Autonomous();
-		void AutonomousInit();
+		void AutonomousInit(int autoMode);
 		void AutonomousCompare();
 		void BeginDrive();
+		void SetMode(int mode);
 	private:
 
 		double m_autonomousType;
