@@ -23,6 +23,7 @@ private:
 	Arms *m_arms;
 
 	Compressor *m_compressor;
+	Ultrasonic *m_ultrasonicSensor;
 
 	AnalogGyro *m_xAxisGyro;
 	AnalogGyro *m_yAxisGyro;
@@ -48,6 +49,8 @@ public:
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
 
+		m_ultrasonicSensor = new Ultrasonic(3);
+
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
 //		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 		m_yAxisGyro = NULL;
@@ -65,11 +68,11 @@ public:
 		delete m_drive;
 		delete m_shooter;
 		delete m_compressor;
+		delete m_ultrasonicSensor;
 		delete m_xAxisGyro;
 		delete m_yAxisGyro;
 		delete m_rightSideEncoder;
 		delete m_leftSideEncoder;
-
 	}
 
 	void RobotInit()
@@ -129,7 +132,8 @@ public:
 	{
 		lw->Run();
 	}
-};
 
+
+};
 START_ROBOT_CLASS(Robot)
 
