@@ -121,7 +121,7 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->RobotMove();
+//		m_drive->ManualRobotDrive();
 //		m_shooter->Update();
 	}
 

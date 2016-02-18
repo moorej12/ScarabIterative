@@ -41,11 +41,10 @@ void Drive::AutoRobotHoldPosition(float moveValue, float rotateValue) {
 	m_moveValue = moveValue;
 	m_rotateValue = rotateValue;
 
-	m_drive->ArcadeDrive(moveValue, rotateValue);
+	m_drive->ArcadeDrive(moveValue, rotateValue, true);
 
 }
 
-//put in power to actively stop the movement of the robot
 void Drive::RobotActiveStop() {
 
 }

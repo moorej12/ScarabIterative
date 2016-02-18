@@ -18,6 +18,7 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 	m_rightSideEncoder = rightEncoder;
 	m_leftSideEncoder = leftEncoder;
 	m_drive = drive;
+	m_autonomousType = -1;
 }
 
 Autonomous::~Autonomous() {
@@ -30,6 +31,8 @@ void Autonomous::AutonomousInit() {
 
 	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
 	m_xAxisGyro->Reset();
+	m_xAxisGyro->SetDeadband(GYRO_DEADBAND);
+
 
 }
 
@@ -77,8 +80,20 @@ void Autonomous::AutonomousCompare() {
 void Autonomous::BeginDrive() {
 
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
+	float check = 0;
 
-	m_drive->AutoRobotHoldPosition(0, -xAngle * CORRECTION_SPEED);
+	if(xAngle < (-1 * AUTO_ERROR_MARGIN)) {
+
+		check = 1;
+	}
+
+	else if(xAngle > AUTO_ERROR_MARGIN) {
+
+		check = -1;
+	}
+
+	m_drive->AutoRobotHoldPosition(0, check * AUTO_CORRECTION_SPEED);
+
 	//m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
 
 
