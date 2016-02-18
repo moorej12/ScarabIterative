@@ -29,10 +29,11 @@
 #define SHOOTER_SHOOT_SPOOL_TIME 2.5
 #define SHOOTER_PNEUMATIC_SPOOL_TIME 0.5
 
-//Correction Speed Value
+//Autonomous constants
 #define AUTO_CORRECTION_SPEED 0.7
 #define AUTO_ERROR_MARGIN 0.3
 #define GYRO_DEADBAND 0.005
+#define RAMP_ANGLE 0
 
 //Channels:
 
