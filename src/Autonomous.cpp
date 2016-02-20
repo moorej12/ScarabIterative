@@ -8,7 +8,7 @@
 #include "Autonomous.h"
 
 
-Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder, Ultrasonic *ultrasonic) {
+Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder, Ultrasonic *ultrasonic) {
 
 //	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
 
@@ -16,11 +16,14 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 	m_xAxisGyro = xGyro;
 	m_yAxisGyro = yGyro;
 	m_ultrasonicSensor = ultrasonic;
-	m_rightSideEncoder = rightEncoder;
-	m_leftSideEncoder = leftEncoder;
+	m_encoder = encoder;
 	m_drive = drive;
 	m_autonomousType = -1;
 	m_stage = kAutonomousUNINITIALIZED;
+	m_flatTime = 0;
+	m_xAngle = m_xAxisGyro->GetAngle();
+	m_yAngle = m_yAxisGyro->GetAngle();
+	m_kP = 0.5;
 }
 
 Autonomous::~Autonomous() {
@@ -35,31 +38,42 @@ void Autonomous::AutonomousInit(int autoMode) {
 	m_yAxisGyro->Reset();
 	m_xAxisGyro->SetDeadband(GYRO_DEADBAND);
 	m_yAxisGyro->SetDeadband(GYRO_DEADBAND);
-	m_stage = kAutonomousUNINITIALIZED;\
+	m_xAxisGyro->SetSensitivity(0.0011);
+	m_yAxisGyro->SetSensitivity(0.0011);
+	m_stage = kAutonomousUNINITIALIZED;
 	m_timer->Reset();
-	m_leftSideEncoder->Reset();
-	m_rightSideEncoder->Reset();
+	m_encoder->Reset();
 }
 
 void Autonomous::Update() {
 	AutonomousCompare();
 
-	SmartDashboard::PutNumber("Right Encoder Distance", m_rightSideEncoder->GetDistance());
-	SmartDashboard::PutNumber("Left Encoder Distance", m_leftSideEncoder->GetDistance());
-
+	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
 }
 
 void Autonomous::AutonomousCompare() {
 
 	switch(m_stage) {
 		case kAutonomousUNINITIALIZED:
-
+			m_stage = kAutonomousDRIVING;
 
 		break;
 
 
 		case kAutonomousDRIVING:
+			BeginDrive();
 
+		break;
+
+		case kAutonomousCORRECTING:
+
+
+		break;
+
+
+		case kAutonomousFINISHED:
+			m_drive->AutoRobotDrive(0, -m_xAngle * m_kP);
 
 		break;
 
@@ -134,16 +148,33 @@ void Autonomous::Correction() {
 //handles everything before moving up the ramp
 void Autonomous::BeginDrive() {
 
-	float xAngle = m_xAxisGyro->GetAngle();
-	float yAngle = m_yAxisGyro->GetAngle();
-	float kP = 0.5;
+	m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP); // turn to correct heading
 
-//	m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
+	printf("/n The Y axis angle is: %f", m_yAngle);
+	if(m_yAngle >= RAMP_ANGLE) {
+		m_stage = kAutonomousCORRECTING;
+		Correction();
+	}
+}
 
-	printf("/n The Y axis angle is: %f", yAngle);
-//	if(yAngle >= RAMP_ANGLE) {
+void Autonomous::CorrectStage() {
+	if(m_xAngle > -AUTO_ERROR_MARGIN && m_xAngle < AUTO_ERROR_MARGIN) {
+		m_stage = static_cast<Stage>(m_autonomousType);
+	}
+	else {
+		Correction();
+	}
+}
 
-
-//	}
-
+void Autonomous::CompletedDefense() {
+	if(m_yAngle >= 1 && m_yAngle <= 1 && m_flatTime >= 50) {
+		m_stage = kAutonomousFINISHED;
+		m_flatTime = 0;
+	}
+	else if(m_yAngle >= 1 && m_yAngle <= 1) {
+		m_flatTime++;
+	}
+	else {
+		m_flatTime = 0;
+	}
 }
