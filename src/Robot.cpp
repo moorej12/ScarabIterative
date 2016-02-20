@@ -63,8 +63,8 @@ public:
 		m_arms = new Arms();
 
 		m_timer = new Timer();
-		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B);
-		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B);
+		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B, false, Encoder::EncodingType::k2X);
+		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B, false, Encoder::EncodingType::k2X);
 		m_arms = new Arms();
 		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder, m_ultrasonicSensor);
 
@@ -98,6 +98,7 @@ public:
 	    m_autoChooser->AddObject("Low Bar", LOW_BAR);
 	    SmartDashboard::PutData("Autonomous Selector", m_autoChooser);
 	    m_autoMode = m_autoChooser->GetSelected();
+	    SmartDashboard::PutNumber("Autonomous Mode: ", m_autoMode);
 
 		m_compressor->Start();
 
@@ -129,9 +130,8 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		m_autonomous->BeginDrive();
-
-
+//		m_autonomous->BeginDrive();
+		m_autonomous->Update();
 	}
 
 	void TeleopInit()
@@ -141,8 +141,8 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->ManualRobotDrive();
-//		m_shooter->Update();
+		m_drive->ManualRobotDrive();
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()

@@ -20,7 +20,16 @@ Arms::Arms() {
 Arms::~Arms() {
 	delete m_rightArmsMotorController;
 	delete m_leftArmsMotorController;
+	delete m_leftArmsPotentiometer;
+	delete m_rightArmsPotentiometer;
+	delete m_leftArmsPIDController;
+	delete m_rightArmsPIDController;
 }
+
+void Arms::Update() {
+
+}
+
 //Sets arm position based on value in degrees
 void Arms::SetPosition(float m_setArmAngle) {
 

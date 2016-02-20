@@ -29,6 +29,7 @@ class Autonomous {
 		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder, Ultrasonic *ultrasonic);
 		~Autonomous();
 		void AutonomousInit(int autoMode);
+		void Update();
 		void AutonomousCompare();
 		void BeginDrive();
 		void SetMode(int mode);
@@ -46,6 +47,7 @@ class Autonomous {
 		Ultrasonic *m_ultrasonicSensor;
 		Stage m_stage;
 		Timer *m_timer;
+		double m_distance; //Unused
 
 };
 

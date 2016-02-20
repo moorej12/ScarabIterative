@@ -37,6 +37,15 @@ void Autonomous::AutonomousInit(int autoMode) {
 	m_yAxisGyro->SetDeadband(GYRO_DEADBAND);
 	m_stage = kAutonomousUNINITIALIZED;\
 	m_timer->Reset();
+	m_leftSideEncoder->Reset();
+	m_rightSideEncoder->Reset();
+}
+
+void Autonomous::Update() {
+	AutonomousCompare();
+
+	SmartDashboard::PutNumber("Right Encoder Distance", m_rightSideEncoder->GetDistance());
+	SmartDashboard::PutNumber("Left Encoder Distance", m_leftSideEncoder->GetDistance());
 
 }
 
@@ -131,7 +140,7 @@ void Autonomous::BeginDrive() {
 
 //	m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
 
-	printf("The Y axis angle is: %f", yAngle);
+	printf("/n The Y axis angle is: %f", yAngle);
 //	if(yAngle >= RAMP_ANGLE) {
 
 
