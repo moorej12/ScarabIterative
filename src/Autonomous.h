@@ -14,6 +14,7 @@
 #include "Arms.h"
 #include "Shooter.h"
 #include "Drive.h"
+#include "math.h"
 
 #define ROUGH_TERRAIN 0
 #define PORTCULLIS 1
@@ -37,7 +38,7 @@ class Autonomous {
 		void CorrectStage();
 		void CheckCompletedDefense();
 		typedef enum {kAutonomousROUGHTERRAIN, kAutonomousPORTCULLIS, kAutonomousROCKWALL, kAutonomousMOAT, kAutonomousTEETERTOTTER, kAutonomousRAMPARTS, kAutonomousLOWBAR, kAutonomousUNINITIALIZED, kAutonomousDRIVING, kAutonomousCORRECTING, kAutonomousFINISHED} Stage;
-		float ProportionalCurve();
+		void ProportionalCurve();
 
 	private:
 
@@ -54,6 +55,7 @@ class Autonomous {
 		float m_xAngle;
 		float m_yAngle;
 		float m_kP;
+		float m_desiredHeading;
 };
 
 
