@@ -73,6 +73,69 @@ Shooter::~Shooter() {
 	delete m_shooterLittleHighAngleButton;
 }
 
+//This runs every 20 ms
+//Put all stuff here
+void Shooter::Update() {
+	//High Quality 4k 144 FPS Thigns and st0ff
+	StateMachine();
+	ShooterAngle();
+
+//	if(m_loadedButton->GetPressed()) {
+//		m_ballLoaded = true;
+//	}
+
+//Replaced by state machine
+//	//Stops all other functions
+//	if(m_idleButton->GetPressed()) {
+//		m_shooting = false;
+//		m_loading = false;
+//		m_unloading = false;
+//		Idle();
+//	}
+//
+//	if(m_shootButton->GetPressed() && BallLoaded()) {
+//		m_shooting = true;
+//	}
+//	if(m_shooting) {
+//		Shoot();
+//	}
+//	if(m_loadButton->GetPressed() && (!BallLoaded())) {
+//		m_loading = true;
+//	}
+//	if(m_loading) {
+//		Load();
+//	}
+//	if(m_unloadButton->GetPressed() && BallLoaded()) {
+//		m_unloading = true;
+//	}
+//	if(m_unloading) {
+//		Unload();
+//	}
+	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
+	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
+	SmartDashboard::PutNumber("State: ", m_status);
+	SmartDashboard::PutNumber("Setpoint: ", m_shooterPIDController->GetSetpoint());
+	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
+
+
+////Test Code
+//	if(m_joy2->GetTrigger()) {
+//		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
+//		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+//	} else {
+//		Idle();
+//	}
+//
+//	if(m_joy2->GetRawButton(2)) {
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+//	} else {
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+//	}
+
+//	Debug();
+}
+
+
 void Shooter::StateMachine() {
 	switch(m_status) {
 
@@ -91,6 +154,9 @@ void Shooter::StateMachine() {
 				if(m_loadButton->GetPressed()) {
 					m_status = kShooterLOADING;
 				}
+				else if(m_loadedButton->GetPressed()) {
+					m_status = kShooterLOADED;
+				}
 			break;
 
 
@@ -100,6 +166,9 @@ void Shooter::StateMachine() {
 				m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
 
 				if(m_loadButton->GetPressed()) {
+					m_status = kShooterIDLE;
+				}
+				else if(m_idleButton->GetPressed()) {
 					m_status = kShooterIDLE;
 				}
 				else if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
@@ -195,20 +264,6 @@ void Shooter::StateMachine() {
 		}
 }
 
-//Old Code
-//void Shooter::Load() {
-//	if(!BallLoaded()){ // if there is no ball in the robot do all the below
-//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
-//		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
-//		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
-//		if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
-//			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
-//			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
-//			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
-//		}
-//	}
-//}
-
 void Shooter::ShooterAngle(/*float targetAngle*/) {
 //	m_targetAngle = targetAngle;
 //	m_shooterPIDController->SetSetpoint((m_joy2->GetY() + 1) * 30);
@@ -231,91 +286,6 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 	}
 
 	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
-
-
-
-}
-
-//This runs every 20 ms
-//Put all stuff here
-void Shooter::Update() {
-	//High Quality 4k 144 FPS Thigns and st0ff
-	StateMachine();
-	ShooterAngle();
-	if(m_loadedButton->GetPressed()) {
-		m_ballLoaded = true;
-	}
-
-//Replaced by state machine
-//	//Stops all other functions
-//	if(m_idleButton->GetPressed()) {
-//		m_shooting = false;
-//		m_loading = false;
-//		m_unloading = false;
-//		Idle();
-//	}
-//
-//	if(m_shootButton->GetPressed() && BallLoaded()) {
-//		m_shooting = true;
-//	}
-//	if(m_shooting) {
-//		Shoot();
-//	}
-//	if(m_loadButton->GetPressed() && (!BallLoaded())) {
-//		m_loading = true;
-//	}
-//	if(m_loading) {
-//		Load();
-//	}
-//	if(m_unloadButton->GetPressed() && BallLoaded()) {
-//		m_unloading = true;
-//	}
-//	if(m_unloading) {
-//		Unload();
-//	}
-	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
-	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
-	SmartDashboard::PutNumber("State: ", m_status);
-	SmartDashboard::PutNumber("Setpoint: ", m_shooterPIDController->GetSetpoint());
-	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
-
-
-////Test Code
-//	if(m_joy2->GetTrigger()) {
-//		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
-//		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
-//	} else {
-//		Idle();
-//	}
-//
-//	if(m_joy2->GetRawButton(2)) {
-//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
-//	} else {
-//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
-//	}
-
-//	Debug();
-}
-
-//Old Code
-void Shooter::Shoot() {
-	if(BallLoaded()) {
-		m_timer->Start();
-		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
-		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
-		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->Get() >= 2.5) {
-			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
-			//Turns everything off
-			if(m_timer->Get() >= 3) {
-				m_ballLoaded = false;
-				Idle();
-				m_timer->Stop();
-				m_timer->Reset();
-				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
-			}
-		}
-	}
 }
 
 //Turns off the launch motors
@@ -330,59 +300,94 @@ bool Shooter::BallLoaded() {
 	return m_ballLoaded;
 }
 
+//Old Code
+//void Shooter::Shoot() {
+//	if(BallLoaded()) {
+//		m_timer->Start();
+//		m_leftMotorController->Set(SHOOTER_SHOOT_SPEED);
+//		m_rightMotorController->Set(SHOOTER_SHOOT_SPEED);
+//		//Activates pneumatic after 3 seconds of startup for the wheels
+//		if(m_timer->Get() >= 2.5) {
+//			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+//			//Turns everything off
+//			if(m_timer->Get() >= 3) {
+//				m_ballLoaded = false;
+//				Idle();
+//				m_timer->Stop();
+//				m_timer->Reset();
+//				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+//			}
+//		}
+//	}
+//}
+
+//Old Code
+//void Shooter::Load() {
+//	if(!BallLoaded()){ // if there is no ball in the robot do all the below
+//		m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);//calls the function Set which sets the solenoid output to false
+//		m_leftMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+//		m_rightMotorController->Set(SHOOTER_LOAD_SPEED);//calls the function Set which sets the PWM value
+//		if(!m_ballLoadedButton->Get()) { //if m_ballLoadedButton is pressed then do what's in between the squiggly brackets
+//			m_leftMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+//			m_rightMotorController->Set(SHOOTER_IDLE_SPEED);//turns motor off
+//			m_ballLoaded = true;//sets m_ballLoaded to true because there is a ball in the robot
+//		}
+//	}
+//}
+
 //Slowly rotates the gripper wheels to eject the ball.
 //Should only be called when the sensor shows the ball is loaded.
 //Old Code
-void Shooter::Unload(){
-	if(BallLoaded()) {
-		m_timer->Start();
-		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
-		//Activates pneumatic after 3 seconds of startup for the wheels
-		if(m_timer->Get() >= 1) {
-			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
-			//Turns everything off
-			if(m_timer->Get() >= 1.5) {
-				m_ballLoaded = false;
-				Idle();
-				m_timer->Stop();
-				m_timer->Reset();
-				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
-			}
-		}
-	}
-}
+//void Shooter::Unload(){
+//	if(BallLoaded()) {
+//		m_timer->Start();
+//		m_leftMotorController->Set(SHOOTER_UNLOAD_SPEED);
+//		m_rightMotorController->Set(SHOOTER_UNLOAD_SPEED);
+//		//Activates pneumatic after 3 seconds of startup for the wheels
+//		if(m_timer->Get() >= 1) {
+//			m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyShoot);
+//			//Turns everything off
+//			if(m_timer->Get() >= 1.5) {
+//				m_ballLoaded = false;
+//				Idle();
+//				m_timer->Stop();
+//				m_timer->Reset();
+//				m_ballyLaunchyThingy5064EXTREMEXD1337->Set(ballyLaunchyRetract);
+//			}
+//		}
+//	}
+//}
 
 //returns a bool representing whether or not the shooter is able to load,
 //based on if the piston is retracted and the ball is loaded.
-bool Shooter::CanLoad(/*not implemented*/){
-	//To return true:
-	//-Piston Extended == False
-	//-Touch Sensor == False
-	return false;
-}
+//bool Shooter::CanLoad(/*not implemented*/){
+//	//To return true:
+//	//-Piston Extended == False
+//	//-Touch Sensor == False
+//	return false;
+//}
 
 //Returns a bool representing whether or not the shooter is able to shoot,
 //based on whether the ball is loaded.
-bool Shooter::CanShoot(/*not implemented*/){
-//To return true:
-//Touch Sensor == True
-	return false;
-}
+//bool Shooter::CanShoot(/*not implemented*/){
+////To return true:
+////Touch Sensor == True
+//	return false;
+//}
 
-void Shooter::Debug() {
-	//An example of how to use the SmartDashboard...
-	SmartDashboard::PutNumber("Timer Value", m_timer->Get());
-}
+//void Shooter::Debug() {
+//	//An example of how to use the SmartDashboard...
+//	SmartDashboard::PutNumber("Timer Value", m_timer->Get());
+//}
 
-void Shooter::PneumaticTest(bool status) { //Test Code
-	m_ballyLaunchyThingy5064EXTREMEXD1337->Set(status);
-}
+//void Shooter::PneumaticTest(bool status) { //Test Code
+//	m_ballyLaunchyThingy5064EXTREMEXD1337->Set(status);
+//}
 
-void Shooter::Init(){
-//resets all values to zero
-	m_targetAngle = 0;
-	m_ballLoaded = false;
-	m_lastPressed = false;
-
-}
+//void Shooter::Init(){
+////resets all values to zero
+//	m_targetAngle = 0;
+//	m_ballLoaded = false;
+//	m_lastPressed = false;
+//
+//}

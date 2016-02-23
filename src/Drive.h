@@ -24,6 +24,7 @@ class Drive {
 		void ManualRobotDrive();
 		void AutoRobotDrive(float outputMagnitude, float curve);
 		void AutoRobotHoldPosition(float moveValue, float rotateValue);
+		void Idle();
 		void RobotActiveStop();
 };
 

@@ -29,8 +29,7 @@ private:
 	AnalogGyro *m_xAxisGyro;
 	AnalogGyro *m_yAxisGyro;
 
-	Encoder *m_rightSideEncoder;
-	Encoder *m_leftSideEncoder;
+	Encoder *m_encoder;
 
 	SendableChooserInt *m_autoChooser;
 	Timer *m_timer;
@@ -63,10 +62,9 @@ public:
 		m_arms = new Arms();
 
 		m_timer = new Timer();
-		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B);
-		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B);
+		m_encoder = new Encoder(ENCODER_CHANNEL_A, ENCODER_CHANNEL_B, false, Encoder::EncodingType::k2X);
 		m_arms = new Arms();
-		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder, m_ultrasonicSensor);
+		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_encoder, m_ultrasonicSensor);
 
 
 	}
@@ -80,8 +78,7 @@ public:
 		delete m_ultrasonicSensor;
 		delete m_xAxisGyro;
 		delete m_yAxisGyro;
-		delete m_rightSideEncoder;
-		delete m_leftSideEncoder;
+		delete m_encoder;
 		delete m_autonomous;
 		delete m_arms;
 	}
@@ -98,18 +95,15 @@ public:
 	    m_autoChooser->AddObject("Low Bar", LOW_BAR);
 	    SmartDashboard::PutData("Autonomous Selector", m_autoChooser);
 	    m_autoMode = m_autoChooser->GetSelected();
+	    SmartDashboard::PutNumber("Autonomous Mode: ", m_autoMode);
 
 		m_compressor->Start();
 
-		m_rightSideEncoder->SetMaxPeriod(ENCODER_SET_MAX_PERIOD);
-		m_rightSideEncoder->SetMinRate(ENCODER_SET_MIN_RATE);
-		m_rightSideEncoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
-		m_rightSideEncoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
+		m_encoder->SetMaxPeriod(ENCODER_SET_MAX_PERIOD);
+		m_encoder->SetMinRate(ENCODER_SET_MIN_RATE);
+		m_encoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
+		m_encoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
 
-		m_leftSideEncoder->SetMaxPeriod(ENCODER_SET_MAX_PERIOD);
-		m_leftSideEncoder->SetMinRate(ENCODER_SET_MIN_RATE);
-		m_leftSideEncoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
-		m_leftSideEncoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
 	}
 
 
@@ -129,9 +123,8 @@ public:
 
 	void AutonomousPeriodic()
 	{
-		m_autonomous->BeginDrive();
-
-
+//		m_autonomous->BeginDrive();
+		m_autonomous->Update();
 	}
 
 	void TeleopInit()
@@ -141,8 +134,8 @@ public:
 
 	void TeleopPeriodic()
 	{
-//		m_drive->ManualRobotDrive();
-//		m_shooter->Update();
+		m_drive->ManualRobotDrive();
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()

@@ -14,8 +14,9 @@
 #define SHOOTER_IDLE_SPEED 0
 #define SHOOTER_SHOOT_SPEED 1
 #define SHOOTER_UNLOAD_SPEED 0.4
-#define SHOOTER_LOAD_SPEED -0.45
-#define DRIVE_MAX_SPEED 0.5
+#define SHOOTER_LOAD_SPEED -0.35
+#define DRIVE_MAX_SPEED 0.8
+#define DRIVE_TURNING_SENSITIVITY 0.8
 
 //Encoder constants
 #define ENCODER_SET_MAX_PERIOD .1		//The maximum period (in seconds) where the device is still considered moving
@@ -33,7 +34,7 @@
 #define AUTO_CORRECTION_SPEED 0.7
 #define AUTO_ERROR_MARGIN 0.3
 #define GYRO_DEADBAND 0.005
-#define RAMP_ANGLE 0
+#define RAMP_ANGLE 0 //Needs to be set
 
 //Channels:
 
@@ -51,13 +52,11 @@
 //Analog Channels
 #define X_GYRO_CHANNEL 0
 #define Y_GYRO_CHANNEL 1
-#define SHOOTER_SLIDE_POTENTIOMETER 1
+#define SHOOTER_SLIDE_POTENTIOMETER 2
 
 //Digital I/O Channels
-#define ENCODER_RIGHT_SIDE_CHANNEL_A 6
-#define ENCODER_RIGHT_SIDE_CHANNEL_B 7
-#define ENCODER_LEFT_SIDE_CHANNEL_A 8
-#define ENCODER_LEFT_SIDE_CHANNEL_B 9
+#define ENCODER_CHANNEL_A 6
+#define ENCODER_CHANNEL_B 7
 
 #define SHOOTER_BALL_LOADED_SENSOR_CHANNEL 0
 #define SHOOTER_MAX_ANGLE_SENSOR_CHANNEL 1
@@ -79,7 +78,7 @@
 #define SHOOTER_LOAD_BUTTON 3
 #define SHOOTER_UNLOAD_BUTTON 5
 #define SHOOTER_IDLE_BUTTON 4
-#define SHOOTER_LOADED_BUTTON -1  //not in use (backup for state-machine error)
+#define SHOOTER_LOADED_BUTTON 8  //NOW ITS IN USE SUCKAS XDDD//not in use (backup for state-machine error)
 
 #define SHOOTER_SHOOT_ANGLE_BUTTON 2
 #define SHOOTER_LOW_ANGLE_BUTTON 7

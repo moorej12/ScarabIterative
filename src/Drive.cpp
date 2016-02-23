@@ -15,10 +15,13 @@ Drive::Drive(Joystick *joy1) {
 			DRIVE_MOTOR_RIGHT_REAR_CHANNEL);
 	m_joy1 = joy1;
 	m_drive->SetMaxOutput(DRIVE_MAX_SPEED);
+	m_drive->SetSensitivity(DRIVE_TURNING_SENSITIVITY);
 	m_outputMagnitude = 0;
 	m_curve = 0;
 	m_moveValue = 0;
 	m_rotateValue = 0;
+//	m_drive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+//	m_drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
 
 Drive::~Drive() {
@@ -43,6 +46,10 @@ void Drive::AutoRobotHoldPosition(float moveValue, float rotateValue) {
 
 	m_drive->ArcadeDrive(moveValue, rotateValue, true);
 
+}
+
+void Drive::Idle() {
+	m_drive->ArcadeDrive(0, 0, true);
 }
 
 void Drive::RobotActiveStop() {

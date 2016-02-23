@@ -26,14 +26,17 @@
 class Autonomous {
 
 	public:
-		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *rightEncoder, Encoder *leftEncoder, Ultrasonic *ultrasonic);
+		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder, Ultrasonic *ultrasonic);
 		~Autonomous();
 		void AutonomousInit(int autoMode);
+		void Update();
 		void AutonomousCompare();
 		void BeginDrive();
 		void SetMode(int mode);
 		void Correction();
-		typedef enum {kAutonomousUNINITIALIZED, kAutonomousDRIVING, kAutonomousROUGHTERRAIN, kAutonomousPORTCULLIS, kAutonomousROCKWALL, kAutonomousMOAT, kAutonomousTEETERTOTTER, kAutonomousRAMPARTS, kAutonomousLOWBAR} Stage;
+		void CorrectStage();
+		void CompletedDefense();
+		typedef enum {kAutonomousROUGHTERRAIN, kAutonomousPORTCULLIS, kAutonomousROCKWALL, kAutonomousMOAT, kAutonomousTEETERTOTTER, kAutonomousRAMPARTS, kAutonomousLOWBAR, kAutonomousUNINITIALIZED, kAutonomousDRIVING, kAutonomousCORRECTING, kAutonomousFINISHED} Stage;
 
 	private:
 
@@ -41,12 +44,15 @@ class Autonomous {
 		AnalogGyro *m_xAxisGyro;
 		AnalogGyro *m_yAxisGyro;
 		Drive *m_drive;
-		Encoder *m_rightSideEncoder;
-		Encoder *m_leftSideEncoder;
+		Encoder *m_encoder;
 		Ultrasonic *m_ultrasonicSensor;
 		Stage m_stage;
 		Timer *m_timer;
-
+		int m_flatTime;
+		double m_distance; //Unused
+		float m_xAngle;
+		float m_yAngle;
+		float m_kP;
 };
 
 

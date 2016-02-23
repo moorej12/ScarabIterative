@@ -25,6 +25,7 @@ class Arms {
 	public:
 		Arms();
 		~Arms();
+		void Update();
 		void SetPosition(float m_setArmAngle);
 		void Move();
 		float GetPosition();
