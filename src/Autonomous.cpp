@@ -18,6 +18,7 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 	m_ultrasonicSensor = ultrasonic;
 	m_encoder = encoder;
 	m_drive = drive;
+
 	m_autonomousType = -1;
 	m_stage = kAutonomousUNINITIALIZED;
 	m_flatTime = 0;
@@ -42,6 +43,7 @@ void Autonomous::AutonomousInit(int autoMode) {
 	m_yAxisGyro->SetSensitivity(0.0011);
 	m_stage = kAutonomousUNINITIALIZED;
 	m_timer->Reset();
+
 	m_encoder->Reset();
 }
 
@@ -129,6 +131,7 @@ void Autonomous::AutonomousCompare() {
 void Autonomous::Correction() {
 
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
+
 	float correctionDirection5064EXTREMEXD1337x8K = 0;
 
 	if(xAngle < (-1 * AUTO_ERROR_MARGIN)) {
@@ -143,10 +146,11 @@ void Autonomous::Correction() {
 
 	m_drive->AutoRobotHoldPosition(0, correctionDirection5064EXTREMEXD1337x8K * AUTO_CORRECTION_SPEED);
 
+//	m_drive->AutoRobotHoldPosition(0, -xAngle * CORRECTION_SPEED);
+	//m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
 //	printf("\n The angle is: %f", xAngle);
 
 }
-
 //handles everything before moving up the ramp
 void Autonomous::BeginDrive() {
 
