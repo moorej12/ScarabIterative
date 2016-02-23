@@ -35,8 +35,9 @@ class Autonomous {
 		void SetMode(int mode);
 		void Correction();
 		void CorrectStage();
-		void CompletedDefense();
+		void CheckCompletedDefense();
 		typedef enum {kAutonomousROUGHTERRAIN, kAutonomousPORTCULLIS, kAutonomousROCKWALL, kAutonomousMOAT, kAutonomousTEETERTOTTER, kAutonomousRAMPARTS, kAutonomousLOWBAR, kAutonomousUNINITIALIZED, kAutonomousDRIVING, kAutonomousCORRECTING, kAutonomousFINISHED} Stage;
+		float ProportionalCurve();
 
 	private:
 

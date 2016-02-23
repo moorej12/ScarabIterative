@@ -80,6 +80,8 @@ void Autonomous::AutonomousCompare() {
 
 		case kAutonomousROUGHTERRAIN:
 
+			m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP);
+			CheckCompletedDefense();
 
 		break;
 
@@ -127,19 +129,19 @@ void Autonomous::AutonomousCompare() {
 void Autonomous::Correction() {
 
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
-	float check = 0;
+	float correctionDirection5064EXTREMEXD1337x8K = 0;
 
 	if(xAngle < (-1 * AUTO_ERROR_MARGIN)) {
 
-		check = 1;
+		correctionDirection5064EXTREMEXD1337x8K = 1;
 	}
 
 	else if(xAngle > AUTO_ERROR_MARGIN) {
 
-		check = -1;
+		correctionDirection5064EXTREMEXD1337x8K = -1;
 	}
 
-	m_drive->AutoRobotHoldPosition(0, check * AUTO_CORRECTION_SPEED);
+	m_drive->AutoRobotHoldPosition(0, correctionDirection5064EXTREMEXD1337x8K * AUTO_CORRECTION_SPEED);
 
 //	printf("\n The angle is: %f", xAngle);
 
@@ -148,6 +150,7 @@ void Autonomous::Correction() {
 //handles everything before moving up the ramp
 void Autonomous::BeginDrive() {
 
+	m_kP = ProportionalCurve();
 	m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP); // turn to correct heading
 
 	printf("/n The Y axis angle is: %f", m_yAngle);
@@ -159,14 +162,14 @@ void Autonomous::BeginDrive() {
 
 void Autonomous::CorrectStage() {
 	if(m_xAngle > -AUTO_ERROR_MARGIN && m_xAngle < AUTO_ERROR_MARGIN) {
-		m_stage = static_cast<Stage>(m_autonomousType);
+		m_stage = static_cast<Stage>(m_autonomousType);  //this changes m_autonomousType int into enum Stage
 	}
 	else {
 		Correction();
 	}
 }
 
-void Autonomous::CompletedDefense() {
+void Autonomous::CheckCompletedDefense() {
 	if(m_yAngle >= 1 && m_yAngle <= 1 && m_flatTime >= 50) {
 		m_stage = kAutonomousFINISHED;
 		m_flatTime = 0;
