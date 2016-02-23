@@ -16,9 +16,10 @@ class Arms {
 		Encoder *m_leftEncoder;
 		Encoder *m_rightEncoder;
 		float m_targetArmsAngle;
-		Potentiometer *m_armsPotentiometer;
-		Potentiometer *m_leftArmsPIDController;
-		Potentiometer *m_rightArmsPIDController;
+		Potentiometer *m_leftArmsPotentiometer;
+		Potentiometer *m_rightArmsPotentiometer;
+		PIDController *m_leftArmsPIDController;
+		PIDController *m_rightArmsPIDController;
 		VictorSP *m_rightArmsMotorController;
 		VictorSP *m_leftArmsMotorController;
 	public:

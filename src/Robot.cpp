@@ -5,6 +5,7 @@
 #include "Drive.h"
 #include "Shooter.h"
 #include "Autonomous.h"
+#include "SendableChooserInt.h"
 
 class Robot: public IterativeRobot
 {
@@ -31,11 +32,15 @@ private:
 	Encoder *m_rightSideEncoder;
 	Encoder *m_leftSideEncoder;
 
+	SendableChooserInt *m_autoChooser;
+	Timer *m_timer;
 
-	SendableChooser *chooser;
-	const std::string autoNameDefault = "Default";
-	const std::string autoNameCustom = "My Auto";
-	std::string autoSelected;
+	int m_autoMode;
+
+//	SendableChooser *chooser;
+//	const std::string autoNameDefault = "Default";
+//	const std::string autoNameCustom = "My Auto";
+//	std::string autoSelected;
 
 
 public:
@@ -52,13 +57,17 @@ public:
 		m_ultrasonicSensor = new Ultrasonic(3,4);
 
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
-//		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
-		m_yAxisGyro = NULL;
-		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder);
+		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
+	    m_autoChooser = new SendableChooserInt();
+		m_autoMode = -1;
 		m_arms = new Arms();
 
+		m_timer = new Timer();
 		m_rightSideEncoder = new Encoder(ENCODER_RIGHT_SIDE_CHANNEL_A, ENCODER_RIGHT_SIDE_CHANNEL_B);
 		m_leftSideEncoder = new Encoder(ENCODER_LEFT_SIDE_CHANNEL_A, ENCODER_LEFT_SIDE_CHANNEL_B);
+		m_arms = new Arms();
+		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_rightSideEncoder, m_leftSideEncoder, m_ultrasonicSensor);
+
 
 	}
 
@@ -73,14 +82,22 @@ public:
 		delete m_yAxisGyro;
 		delete m_rightSideEncoder;
 		delete m_leftSideEncoder;
+		delete m_autonomous;
+		delete m_arms;
 	}
 
 	void RobotInit()
 	{
-		chooser = new SendableChooser();
-		chooser->AddDefault(autoNameDefault, (void*)&autoNameDefault);
-		chooser->AddObject(autoNameCustom, (void*)&autoNameCustom);
-		SmartDashboard::PutData("Auto Modes", chooser);
+	    m_autoChooser->AddDefault("Default", -1);
+	    m_autoChooser->AddObject("Rough Terrain", ROUGH_TERRAIN);
+	    m_autoChooser->AddObject("Portcullis", PORTCULLIS);
+	    m_autoChooser->AddObject("Rock Wall", ROCK_WALL);
+	    m_autoChooser->AddObject("Moat", MOAT);
+	    m_autoChooser->AddObject("Teeter Totters", TEETER_TOTTERS);
+	    m_autoChooser->AddObject("Ramparts", RAMPARTS);
+	    m_autoChooser->AddObject("Low Bar", LOW_BAR);
+	    SmartDashboard::PutData("Autonomous Selector", m_autoChooser);
+	    m_autoMode = m_autoChooser->GetSelected();
 
 		m_compressor->Start();
 
@@ -107,7 +124,7 @@ public:
 	 */
 	void AutonomousInit()
 	{
-		m_autonomous->AutonomousInit();
+		m_autonomous->AutonomousInit(m_autoMode);
 	}
 
 	void AutonomousPeriodic()
