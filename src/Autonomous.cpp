@@ -130,15 +130,12 @@ void Autonomous::Correction() {
 
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
 
-<<<<<<< HEAD
+
 	m_drive->AutoRobotHoldPosition(0, -xAngle * CORRECTION_SPEED);
 	//m_drive->AutoRobotDrive(-0.2, -xAngle * kP); // turn to correct heading
-=======
 //	printf("\n The angle is: %f", xAngle);
 
 }
->>>>>>> 52ba3d8960080e160bd7e3bd6ebe86f59bda5285
-
 //handles everything before moving up the ramp
 void Autonomous::BeginDrive() {
 
