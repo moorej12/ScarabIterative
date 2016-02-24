@@ -58,7 +58,7 @@ public:
 		m_arms = new Arms();
 
 		m_timer = new Timer();
-		m_encoder = new Encoder(ENCODER_CHANNEL_A, ENCODER_CHANNEL_B, false, Encoder::EncodingType::k2X);
+		m_encoder = new Encoder(ENCODER_CHANNEL_A, ENCODER_CHANNEL_B, false, Encoder::EncodingType::k4X);
 		m_arms = new Arms();
 		m_drive = new Drive(m_joy1, m_xAxisGyro, m_yAxisGyro);
 		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_encoder);
@@ -77,6 +77,7 @@ public:
 		delete m_encoder;
 		delete m_autonomous;
 		delete m_arms;
+		delete m_timer;
 	}
 
 	void RobotInit()

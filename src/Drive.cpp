@@ -41,6 +41,7 @@ void Drive::ManualRobotDrive() {
 void Drive::DriveInit() {
 
 	m_yAxisGyro->Reset();
+	m_xAxisGyro->Reset();
 
 }
 
@@ -74,7 +75,7 @@ void Drive::EmergencyResponseDrive() {
 
 	if(emergencyValue >= BACK_TIP_ANGLE) {
 
-		m_drive->ArcadeDrive(-0.3, 0, true);
+		m_drive->ArcadeDrive(0.3, 0, true);
 
 		}
 	}

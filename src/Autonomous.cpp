@@ -35,8 +35,9 @@ void Autonomous::AutonomousInit(int autoMode) {
 	m_autonomousType = autoMode;
 	m_stage = kAutonomousUNINITIALIZED;
 	m_timer->Reset();
-
 	m_encoder->Reset();
+	m_xAxisGyro->Reset();
+	m_yAxisGyro->Reset();
 
 	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
 	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
