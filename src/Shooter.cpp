@@ -19,7 +19,7 @@ Shooter::Shooter(Joystick *joy1) {
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_angleMotorController = new VictorSP(SHOOTER_RAISE_AND_LOWER_CHANNEL);
-	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 70, 0);
+	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 4095, 0);
 	m_shooterPIDController = new PIDController(0.1, 0.01, 0, m_shooterPotentiometer, m_angleMotorController);
 
 	m_targetAngle = 0;
@@ -307,7 +307,7 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 		m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 	}
 
-	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
+	//may not even be useful	m_angleMotorController->Set(m_joy2->GetY());
 }
 
 //Turns off the launch motors
@@ -324,6 +324,14 @@ bool Shooter::BallLoaded() {
 
 bool Shooter::MaxHeightSensor(){
 		return m_maxAngleButton->Get();
+}
+
+void Shooter::StowShooter() {
+	m_shooterPIDController->SetSetpoint(30);
+}
+
+void Shooter::LowerShooter() {
+	m_shooterPIDController->SetSetpoint(3);
 }
 //Old Code
 //void Shooter::Shoot() {

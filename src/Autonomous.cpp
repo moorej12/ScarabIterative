@@ -60,6 +60,7 @@ void Autonomous::AutonomousCompare() {
 
 		case kAutonomousDRIVING:
 			BeginDrive();
+			m_shooter->StowShooter();
 
 		break;
 
@@ -71,6 +72,7 @@ void Autonomous::AutonomousCompare() {
 
 		case kAutonomousFINISHED:
 			m_drive->AutoRobotDrive(0, -m_xAngle * m_kP);
+			m_shooter->LowerShooter();
 
 		break;
 
