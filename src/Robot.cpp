@@ -147,7 +147,7 @@ public:
 
 		m_drive->EmergencyResponseDrive();
 //		m_drive->ManualRobotDrive();
-//		m_shooter->Update();
+		m_shooter->Update();
 
 		//Gyro angle testing block
 //		float angle = m_xAxisGyro->GetAngle();
