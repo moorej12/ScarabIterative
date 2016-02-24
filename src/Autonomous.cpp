@@ -27,7 +27,7 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 
 Autonomous::~Autonomous() {
 
-
+	delete m_timer;
 
 }
 

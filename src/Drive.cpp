@@ -69,13 +69,14 @@ void Drive::RobotActiveStop() {
 
 }
 
+//this function must be run after the manual drive one!!!!!!!!
 void Drive::EmergencyResponseDrive() {
 
-	float emergencyValue = m_yAxisGyro->GetAngle();
+	float emergencyValue = m_xAxisGyro->GetAngle();  //should be y gyro
 
 	if(emergencyValue >= BACK_TIP_ANGLE) {
 
 		m_drive->ArcadeDrive(0.3, 0, true);
 
 		}
-	}
+}

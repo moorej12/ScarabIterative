@@ -50,7 +50,6 @@ class Autonomous {
 		Stage m_stage;
 		Timer *m_timer;
 		int m_flatTime;
-		double m_distance; //Unused
 		float m_xAngle;
 		float m_yAngle;
 		float m_kP;

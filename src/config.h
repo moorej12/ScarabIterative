@@ -35,7 +35,7 @@
 //Autonomous constants
 #define AUTO_CORRECTION_SPEED 0.7
 #define AUTO_ERROR_MARGIN 0.3
-#define GYRO_DEADBAND 0.005
+#define GYRO_DEADBAND 0.001
 #define RAMP_ANGLE 0 //Needs to be set
 #define STRETCH_CONSTANT 2000
 
