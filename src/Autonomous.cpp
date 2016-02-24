@@ -8,14 +8,13 @@
 #include "Autonomous.h"
 
 
-Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder, Ultrasonic *ultrasonic) {
+Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder) {
 
 //	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
 
 	m_timer = new Timer();
 	m_xAxisGyro = xGyro;
 	m_yAxisGyro = yGyro;
-	m_ultrasonicSensor = ultrasonic;
 	m_encoder = encoder;
 	m_drive = drive;
 
@@ -194,6 +193,6 @@ void Autonomous::CheckCompletedDefense() {
 	double angle = m_xAxisGyro->GetAngle();
 	double error = angle - m_desiredHeading;
 
-	m_kP = (error)/(sqrt(error^2+STRETCH_CONSTANT));
+//	m_kP = (error)/(sqrt(error^2+STRETCH_CONSTANT));
 
 }

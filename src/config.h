@@ -37,6 +37,10 @@
 #define RAMP_ANGLE 0 //Needs to be set
 #define STRETCH_CONSTANT 2000
 
+//Shooter Emergency Stop Angles
+#define BACK_TIP_ANGLE 75
+
+
 //Channels:
 
 //PWM:

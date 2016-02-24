@@ -47,13 +47,10 @@ public:
 	Robot() {
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
-		m_drive = new Drive(m_joy1);
 
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
-
-		m_ultrasonicSensor = new Ultrasonic(3,4);
 
 		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
 		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
@@ -64,8 +61,8 @@ public:
 		m_timer = new Timer();
 		m_encoder = new Encoder(ENCODER_CHANNEL_A, ENCODER_CHANNEL_B, false, Encoder::EncodingType::k2X);
 		m_arms = new Arms();
-		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_encoder, m_ultrasonicSensor);
-
+		m_drive = new Drive(m_joy1, m_yAxisGyro);
+		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_encoder);
 
 	}
 
@@ -129,13 +126,16 @@ public:
 
 	void TeleopInit()
 	{
-		//put all init functions here
+		//put all teleop-relevant init functions here
+		m_drive->DriveInit();
+
 	}
 
 	void TeleopPeriodic()
 	{
-		m_drive->ManualRobotDrive();
-		m_shooter->Update();
+		m_drive->EmergencyResponseDrive();
+//		m_drive->ManualRobotDrive();
+//		m_shooter->Update();
 	}
 
 	void TestPeriodic()

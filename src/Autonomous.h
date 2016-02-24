@@ -27,7 +27,7 @@
 class Autonomous {
 
 	public:
-		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder, Ultrasonic *ultrasonic);
+		Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder);
 		~Autonomous();
 		void AutonomousInit(int autoMode);
 		void Update();
@@ -47,7 +47,6 @@ class Autonomous {
 		AnalogGyro *m_yAxisGyro;
 		Drive *m_drive;
 		Encoder *m_encoder;
-		Ultrasonic *m_ultrasonicSensor;
 		Stage m_stage;
 		Timer *m_timer;
 		int m_flatTime;
