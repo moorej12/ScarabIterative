@@ -19,7 +19,7 @@ Shooter::Shooter(Joystick *joy1) {
 	m_leftMotorController = new VictorSP(SHOOTER_LEFT_LAUNCH_MOTOR_CHANNEL);
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_angleMotorController = new VictorSP(SHOOTER_RAISE_AND_LOWER_CHANNEL);
-	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 60, 0);
+	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 70, 0);
 	m_shooterPIDController = new PIDController(0.1, 0.01, 0, m_shooterPotentiometer, m_angleMotorController);
 
 	m_targetAngle = 0;

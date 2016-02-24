@@ -113,18 +113,20 @@ void Autonomous::AutonomousCompare() {
 
 
 		case kAutonomousRAMPARTS:
-
+			m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP);
+			CheckCompletedDefense();
 
 		break;
 
 
 		case kAutonomousLOWBAR:
-
+			m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP);
+			if(m_encoder->GetDistance() >= 84) { //Needs proper value
+				m_stage = kAutonomousFINISHED;
+			}
 
 		break;
-
 	}
-
 }
 
 
