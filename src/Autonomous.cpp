@@ -130,7 +130,6 @@ void Autonomous::AutonomousCompare() {
 void Autonomous::Correction() {
 
 	float xAngle = m_xAxisGyro->GetAngle(); // get heading
-
 	float correctionDirection5064EXTREMEXD1337x8K = 0;
 
 	if(xAngle < (-1 * AUTO_ERROR_MARGIN)) {
@@ -156,8 +155,7 @@ void Autonomous::BeginDrive() {
 	ProportionalCurve();
 	m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP); // turn to correct heading
 
-	printf("/n The Y axis angle is: %f", m_yAngle);
-	if(m_yAngle >= RAMP_ANGLE) {
+	if(m_yAngle >= RAMP_ANGLE + DEAD_ZONE) {
 		m_stage = kAutonomousCORRECTING;
 		Correction();
 	}
@@ -193,3 +191,5 @@ void Autonomous::CheckCompletedDefense() {
 	double error = angle - m_desiredHeading;
 	m_kP = (error)/(sqrt((pow(error,2)) + STRETCH_CONSTANT));
 }
+
+
