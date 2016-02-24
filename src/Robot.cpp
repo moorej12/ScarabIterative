@@ -104,6 +104,15 @@ public:
 		m_encoder->SetDistancePerPulse(ENCODER_SET_DISTANCE_PER_PULSE);
 		m_encoder->SetSamplesToAverage(ENCODER_SET_SAMPLES_PER_AVERAGE);
 
+		m_xAxisGyro->InitGyro();
+		m_yAxisGyro->InitGyro();
+		m_xAxisGyro->Reset();
+		m_yAxisGyro->Reset();
+		m_xAxisGyro->SetDeadband(GYRO_DEADBAND);
+		m_yAxisGyro->SetDeadband(GYRO_DEADBAND);
+		m_xAxisGyro->SetSensitivity(0.0011);
+		m_yAxisGyro->SetSensitivity(0.0011);
+
 	}
 
 
