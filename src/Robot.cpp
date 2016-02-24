@@ -132,6 +132,7 @@ public:
 	{
 //		m_autonomous->BeginDrive();
 		m_autonomous->Update();
+		Debug();
 	}
 
 	void TeleopInit()
@@ -145,20 +146,27 @@ public:
 	{
 
 
-		m_drive->EmergencyResponseDrive();
+//		m_drive->EmergencyResponseDrive();
 //		m_drive->ManualRobotDrive();
-		m_shooter->Update();
-
-		//Gyro angle testing block
-		float angle = m_xAxisGyro->GetAngle();
-		double angle2 = m_xAxisGyro->GetRate();
-		printf("\n The value of the Y Gyro is: %f,  Rate is: %lf", angle, angle2);
+//		m_shooter->Update();
+		Debug();
 
 	}
 
 	void TestPeriodic()
 	{
 		lw->Run();
+	}
+
+
+	void Debug()
+	{
+		//Gyro angle testing block
+		float angle = m_xAxisGyro->GetAngle();
+		double angle2 = m_xAxisGyro->GetRate();
+		printf("\n The value of the Y Gyro is: %f,  Rate is: %lf", angle, angle2);
+
+
 	}
 
 

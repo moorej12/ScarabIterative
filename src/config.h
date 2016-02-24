@@ -38,6 +38,7 @@
 #define GYRO_DEADBAND 0.001
 #define RAMP_ANGLE 0 //Needs to be set
 #define STRETCH_CONSTANT 2000
+#define DEAD_ZONE 2.5
 
 //Shooter Emergency Stop Angles
 #define BACK_TIP_ANGLE 75
