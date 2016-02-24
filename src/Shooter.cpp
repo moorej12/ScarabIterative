@@ -20,7 +20,9 @@ Shooter::Shooter(Joystick *joy1) {
 	m_rightMotorController = new VictorSP(SHOOTER_RIGHT_LAUNCH_MOTOR_CHANNEL);
 	m_angleMotorController = new VictorSP(SHOOTER_RAISE_AND_LOWER_CHANNEL);
 	m_shooterPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 70, 0);
-	m_shooterPIDController = new PIDController(0.1, 0.01, 0, m_shooterPotentiometer, m_angleMotorController);
+	m_shooterPIDController = new PIDController(PROPORTIONAL_CONSTANT, INTEGRAL_CONSTANT, 0, m_shooterPotentiometer, m_angleMotorController);
+	m_shooterPIDController->SetSetpoint(SHOOTER_SHOOT_VALUE);
+
 
 	m_targetAngle = 0;
 	m_ballLoadedButton = new DigitalInput(SHOOTER_BALL_LOADED_SENSOR_CHANNEL);
@@ -77,8 +79,8 @@ Shooter::~Shooter() {
 //Put all stuff here
 void Shooter::Update() {
 	//High Quality 4k 144 FPS Thigns and st0ff
-	StateMachine();
-//	ShooterAngle();
+//	StateMachine(); //RENABLE
+	ShooterAngle();
 
 	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
 	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
@@ -278,7 +280,7 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 	m_shooterPIDController->Enable();
 	m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 	if(m_shootAngleButton->GetPressed()) {
-		m_shooterPIDController->SetSetpoint(45);
+		m_shooterPIDController->SetSetpoint(SHOOTER_SHOOT_VALUE);
 	}
 	if(m_shooterLowAngleButton->GetPressed()) {
 		m_shooterPIDController->SetSetpoint(5);

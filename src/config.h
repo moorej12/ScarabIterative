@@ -32,6 +32,17 @@
 #define SHOOTER_SHOOT_SPOOL_TIME 2.5
 #define SHOOTER_PNEUMATIC_SPOOL_TIME 0.5
 
+//Shooter Angle Petentiometer values - have to be reset manually if petentiometer is moved!
+#define SHOOTER_SHOOT_VALUE 990
+#define SHOOTER_LOWBAR_CARRY 1740
+#define SHOOTER_CARRY_VALUE 1111
+#define SHOOTER_MIN_VALUE 2003
+#define SHOOTER_MAX_VALUE 356
+
+//PID constants
+#define PROPORTIONAL_CONSTANT 0.1
+#define INTEGRAL_CONSTANT 0.01
+
 //Autonomous constants
 #define AUTO_CORRECTION_SPEED 0.7
 #define AUTO_ERROR_MARGIN 0.3
