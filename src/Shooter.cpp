@@ -78,7 +78,16 @@ Shooter::~Shooter() {
 void Shooter::Update() {
 	//High Quality 4k 144 FPS Thigns and st0ff
 	StateMachine();
-	ShooterAngle();
+//	ShooterAngle();
+
+	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
+	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
+	SmartDashboard::PutNumber("State: ", m_status);
+	SmartDashboard::PutNumber("Setpoint: ", m_shooterPIDController->GetSetpoint());
+	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
+
+	//Test Code:
+	m_angleMotorController->Set(m_joy2->GetY() * SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 
 //	if(m_loadedButton->GetPressed()) {
 //		m_ballLoaded = true;
@@ -111,12 +120,6 @@ void Shooter::Update() {
 //	if(m_unloading) {
 //		Unload();
 //	}
-	SmartDashboard::PutBoolean("Ball Button: ",m_ballLoadedButton->Get());
-	SmartDashboard::PutBoolean("Ball Loaded: ",m_ballLoaded);
-	SmartDashboard::PutNumber("State: ", m_status);
-	SmartDashboard::PutNumber("Setpoint: ", m_shooterPIDController->GetSetpoint());
-	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
-
 
 ////Test Code
 //	if(m_joy2->GetTrigger()) {
@@ -268,21 +271,29 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 //	m_targetAngle = targetAngle;
 //	m_shooterPIDController->SetSetpoint((m_joy2->GetY() + 1) * 30);
 	m_shooterPIDController->Enable();
-	m_shooterPIDController->SetOutputRange(-0.5, 0.5);
+	m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 	if(m_shootAngleButton->GetPressed()) {
 		m_shooterPIDController->SetSetpoint(45);
 	}
 	if(m_shooterLowAngleButton->GetPressed()) {
-		m_shooterPIDController->SetSetpoint(3);
+		m_shooterPIDController->SetSetpoint(5);
 	}
 	if(m_shooterHighAngleButton->GetPressed()) {
-		m_shooterPIDController->SetSetpoint(57);
+		m_shooterPIDController->SetSetpoint(65);
 	}
 	if(m_shooterLittleLowAngleButton->GetPressed()) {
-		m_shooterPIDController->SetSetpoint(10);
+		m_shooterPIDController->SetSetpoint(15);
 	}
 	if(m_shooterLittleHighAngleButton->GetPressed()) {
-		m_shooterPIDController->SetSetpoint(50);
+		m_shooterPIDController->SetSetpoint(55);
+	}
+
+	if(!m_maxAngleButton->Get()) {
+		m_shooterPIDController->SetSetpoint(60);
+	}
+
+	if(!m_minAngleButton->Get()) {
+		m_shooterPIDController->SetSetpoint(10);
 	}
 
 	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());

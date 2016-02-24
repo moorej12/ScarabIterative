@@ -8,7 +8,10 @@
 #include "Drive.h"
 #include "config.h"
 
-Drive::Drive(Joystick *joy1) {
+
+//IMPORTANT NOTE:  - is forwards... + values are backwards...
+
+Drive::Drive(Joystick *joy1, AnalogGyro *xGyro, AnalogGyro *yGyro) {
 	m_drive = new RobotDrive(DRIVE_MOTOR_LEFT_FRONT_CHANNEL,
 			DRIVE_MOTOR_LEFT_REAR_CHANNEL,
 			DRIVE_MOTOR_RIGHT_FRONT_CHANNEL,
@@ -20,6 +23,8 @@ Drive::Drive(Joystick *joy1) {
 	m_curve = 0;
 	m_moveValue = 0;
 	m_rotateValue = 0;
+	m_yAxisGyro = yGyro;
+	m_xAxisGyro = xGyro;
 //	m_drive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 //	m_drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
@@ -30,6 +35,13 @@ Drive::~Drive() {
 
 void Drive::ManualRobotDrive() {
 	m_drive->ArcadeDrive(m_joy1->GetY(), m_joy1->GetZ(), true);
+	SmartDashboard::PutNumber("X Axis Gyro: ", m_xAxisGyro->GetAngle());
+}
+
+void Drive::DriveInit() {
+
+	m_yAxisGyro->Reset();
+
 }
 
 //(+) for forwards and (-) for backwards; sets the current
@@ -55,3 +67,14 @@ void Drive::Idle() {
 void Drive::RobotActiveStop() {
 
 }
+
+void Drive::EmergencyResponseDrive() {
+
+	float emergencyValue = m_yAxisGyro->GetAngle();
+
+	if(emergencyValue >= BACK_TIP_ANGLE) {
+
+		m_drive->ArcadeDrive(-0.3, 0, true);
+
+		}
+	}

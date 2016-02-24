@@ -8,14 +8,13 @@
 #include "Autonomous.h"
 
 
-Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder, Ultrasonic *ultrasonic) {
+Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *xGyro, AnalogGyro *yGyro, Encoder *encoder) {
 
 //	m_autonomousType = SmartDashboard::GetNumber("Autonomous Obstacle Type:", -1);
 
 	m_timer = new Timer();
 	m_xAxisGyro = xGyro;
 	m_yAxisGyro = yGyro;
-	m_ultrasonicSensor = ultrasonic;
 	m_encoder = encoder;
 	m_drive = drive;
 
@@ -34,23 +33,18 @@ Autonomous::~Autonomous() {
 
 void Autonomous::AutonomousInit(int autoMode) {
 	m_autonomousType = autoMode;
-	m_xAxisGyro->Reset();
-	m_yAxisGyro->Reset();
-	m_xAxisGyro->SetDeadband(GYRO_DEADBAND);
-	m_yAxisGyro->SetDeadband(GYRO_DEADBAND);
-	m_xAxisGyro->SetSensitivity(0.0011);
-	m_yAxisGyro->SetSensitivity(0.0011);
 	m_stage = kAutonomousUNINITIALIZED;
 	m_timer->Reset();
 
 	m_encoder->Reset();
+
+	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
 }
 
 void Autonomous::Update() {
 	AutonomousCompare();
 
-	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
-	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
 }
 
 void Autonomous::AutonomousCompare() {
@@ -193,7 +187,5 @@ void Autonomous::CheckCompletedDefense() {
 
 	double angle = m_xAxisGyro->GetAngle();
 	double error = angle - m_desiredHeading;
-
-	m_kP = (error)/(sqrt(error^2+STRETCH_CONSTANT));
-
+	m_kP = (error)/(sqrt((pow(error,2)) + STRETCH_CONSTANT));
 }
