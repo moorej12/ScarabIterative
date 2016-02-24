@@ -8,9 +8,10 @@
 #include "Drive.h"
 #include "config.h"
 
+
 //IMPORTANT NOTE:  - is forwards... + values are backwards...
 
-Drive::Drive(Joystick *joy1, Gyro *yGyro) {
+Drive::Drive(Joystick *joy1, AnalogGyro *xGyro, AnalogGyro *yGyro) {
 	m_drive = new RobotDrive(DRIVE_MOTOR_LEFT_FRONT_CHANNEL,
 			DRIVE_MOTOR_LEFT_REAR_CHANNEL,
 			DRIVE_MOTOR_RIGHT_FRONT_CHANNEL,
@@ -23,6 +24,7 @@ Drive::Drive(Joystick *joy1, Gyro *yGyro) {
 	m_moveValue = 0;
 	m_rotateValue = 0;
 	m_yAxisGyro = yGyro;
+	m_xAxisGyro = xGyro;
 //	m_drive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 //	m_drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
@@ -33,6 +35,7 @@ Drive::~Drive() {
 
 void Drive::ManualRobotDrive() {
 	m_drive->ArcadeDrive(m_joy1->GetY(), m_joy1->GetZ(), true);
+	SmartDashboard::PutNumber("X Axis Gyro: ", m_xAxisGyro->GetAngle());
 }
 
 void Drive::DriveInit() {

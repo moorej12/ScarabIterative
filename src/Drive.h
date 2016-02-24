@@ -12,15 +12,15 @@ class Drive {
 	private:
 		RobotDrive *m_drive;
 		Joystick *m_joy1;
-		Joystick *m_dance1;
-		Gyro *m_yAxisGyro;
+		AnalogGyro *m_yAxisGyro;
+		AnalogGyro *m_xAxisGyro;
 		float m_outputMagnitude;
 		float m_curve;
 		float m_moveValue;
 		float m_rotateValue;
 
 	public:
-		Drive(Joystick *joy1, Gyro *yGyro);
+		Drive(Joystick *joy1, AnalogGyro *xGyro, AnalogGyro *yGyro);
 		~Drive();
 		void ManualRobotDrive();
 		void AutoRobotDrive(float outputMagnitude, float curve);

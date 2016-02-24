@@ -17,6 +17,8 @@
 #define SHOOTER_LOAD_SPEED -0.35
 #define DRIVE_MAX_SPEED 0.8
 #define DRIVE_TURNING_SENSITIVITY 0.8
+#define SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP 0.32
+#define SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN 0.1
 
 //Encoder constants
 #define ENCODER_SET_MAX_PERIOD .1		//The maximum period (in seconds) where the device is still considered moving

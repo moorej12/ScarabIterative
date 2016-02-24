@@ -47,13 +47,12 @@ public:
 	Robot() {
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
+		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
+		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
 		m_compressor->SetClosedLoopControl(true);
-
-		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
-		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 	    m_autoChooser = new SendableChooserInt();
 		m_autoMode = -1;
 		m_arms = new Arms();
@@ -61,7 +60,7 @@ public:
 		m_timer = new Timer();
 		m_encoder = new Encoder(ENCODER_CHANNEL_A, ENCODER_CHANNEL_B, false, Encoder::EncodingType::k2X);
 		m_arms = new Arms();
-		m_drive = new Drive(m_joy1, m_yAxisGyro);
+		m_drive = new Drive(m_joy1, m_xAxisGyro, m_yAxisGyro);
 		m_autonomous = new Autonomous(m_drive, m_shooter, m_arms, m_xAxisGyro, m_yAxisGyro, m_encoder);
 
 	}

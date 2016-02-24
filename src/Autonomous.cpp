@@ -43,13 +43,14 @@ void Autonomous::AutonomousInit(int autoMode) {
 	m_timer->Reset();
 
 	m_encoder->Reset();
+
+	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
+	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
 }
 
 void Autonomous::Update() {
 	AutonomousCompare();
 
-	SmartDashboard::PutNumber("Encoder Distance", m_encoder->GetDistance());
-	SmartDashboard::PutNumber("Encoder Value", m_encoder->GetRaw());
 }
 
 void Autonomous::AutonomousCompare() {
@@ -192,7 +193,5 @@ void Autonomous::CheckCompletedDefense() {
 
 	double angle = m_xAxisGyro->GetAngle();
 	double error = angle - m_desiredHeading;
-
-//	m_kP = (error)/(sqrt(error^2+STRETCH_CONSTANT));
-
+	m_kP = (error)/(sqrt((pow(error,2)) + STRETCH_CONSTANT));
 }
