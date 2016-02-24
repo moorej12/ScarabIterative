@@ -290,10 +290,16 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 
 	if(!m_maxAngleButton->Get()) {
 		m_shooterPIDController->SetSetpoint(60);
+		m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, 0);
 	}
 
 	if(!m_minAngleButton->Get()) {
 		m_shooterPIDController->SetSetpoint(10);
+		m_shooterPIDController->SetOutputRange(0, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
+	}
+
+	if(m_minAngleButton && m_maxAngleButton) {
+		m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 	}
 
 	//may not even be useful     m_angleMotorController->Set(m_joy2->GetY());
