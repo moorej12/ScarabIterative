@@ -12,8 +12,8 @@ Arms::Arms() {
 	m_armAngle = 0;
 //	m_leftArmsPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 60, 0);
 //	m_rightArmsPotentiometer = new AnalogPotentiometer(SHOOTER_SLIDE_POTENTIOMETER, 60, 0);
-	m_leftArmsPIDController = new PIDController(0.1, 0.01, 0, m_leftArmsPotentiometer, m_leftArmsMotorController);
-	m_rightArmsPIDController = new PIDController(0.1, 0.01, 0, m_rightArmsPotentiometer, m_rightArmsMotorController);
+//	m_leftArmsPIDController = new PIDController(0.1, 0.01, 0, m_leftArmsPotentiometer, m_leftArmsMotorController);
+//	m_rightArmsPIDController = new PIDController(0.1, 0.01, 0, m_rightArmsPotentiometer, m_rightArmsMotorController);
 	m_leftArmsMotorController = new VictorSP(LEFT_ARMS_MOTOR_CHANNEL);
 	m_rightArmsMotorController = new VictorSP(RIGHT_ARMS_MOTOR_CHANNEL);
 }
