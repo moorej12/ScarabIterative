@@ -47,7 +47,9 @@ public:
 	Robot() {
 		m_joy1 = new Joystick(0);
 		m_joy2 = new Joystick(1);
-		m_drive = new Drive(m_joy1);
+		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
+		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
+		m_drive = new Drive(m_joy1, m_xAxisGyro);
 
 		m_shooter = new Shooter(m_joy2);
 		m_compressor = new Compressor(0);
@@ -55,8 +57,6 @@ public:
 
 		m_ultrasonicSensor = new Ultrasonic(3,4);
 
-		m_xAxisGyro = new AnalogGyro(X_GYRO_CHANNEL);
-		m_yAxisGyro = new AnalogGyro(Y_GYRO_CHANNEL);
 	    m_autoChooser = new SendableChooserInt();
 		m_autoMode = -1;
 		m_arms = new Arms();
