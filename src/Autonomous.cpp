@@ -23,6 +23,7 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 	m_flatTime = 0;
 	m_kP = 0.5;
 	m_desiredHeading = 0;
+	m_shooter = shooter;
 }
 
 Autonomous::~Autonomous() {
