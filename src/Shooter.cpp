@@ -271,7 +271,7 @@ void Shooter::ShooterAngle(/*float targetAngle*/) {
 //	m_targetAngle = targetAngle;
 //	m_shooterPIDController->SetSetpoint((m_joy2->GetY() + 1) * 30);
 	m_shooterPIDController->Enable();
-	m_shooterPIDController->SetOutputRange(-SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
+	m_shooterPIDController->SetOutputRange(SHOOTER_ANGLE_MOTOR_SENSITIVITY_DOWN, SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
 	if(m_shootAngleButton->GetPressed()) {
 		m_shooterPIDController->SetSetpoint(45);
 	}

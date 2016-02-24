@@ -33,12 +33,6 @@ Autonomous::~Autonomous() {
 
 void Autonomous::AutonomousInit(int autoMode) {
 	m_autonomousType = autoMode;
-	m_xAxisGyro->Reset();
-	m_yAxisGyro->Reset();
-	m_xAxisGyro->SetDeadband(GYRO_DEADBAND);
-	m_yAxisGyro->SetDeadband(GYRO_DEADBAND);
-	m_xAxisGyro->SetSensitivity(0.0011);
-	m_yAxisGyro->SetSensitivity(0.0011);
 	m_stage = kAutonomousUNINITIALIZED;
 	m_timer->Reset();
 
