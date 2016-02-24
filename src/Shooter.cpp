@@ -87,7 +87,12 @@ void Shooter::Update() {
 	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
 
 	//Test Code:
-	m_angleMotorController->Set(m_joy2->GetY() * SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
+	if(!m_maxAngleButton->Get() && m_joy2->GetY() < 0) {
+		m_angleMotorController->Set(m_joy2->GetY() * 0);
+	}
+	else {
+		m_angleMotorController->Set(m_joy2->GetY() * SHOOTER_ANGLE_MOTOR_SENSITIVITY_UP);
+	}
 
 //	if(m_loadedButton->GetPressed()) {
 //		m_ballLoaded = true;

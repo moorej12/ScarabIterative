@@ -22,8 +22,8 @@ Arms::~Arms() {
 	delete m_leftArmsMotorController;
 //	delete m_leftArmsPotentiometer;
 //	delete m_rightArmsPotentiometer;
-	delete m_leftArmsPIDController;
-	delete m_rightArmsPIDController;
+//	delete m_leftArmsPIDController;
+//	delete m_rightArmsPIDController;
 }
 
 void Arms::Update() {

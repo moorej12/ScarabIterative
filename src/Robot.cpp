@@ -143,8 +143,8 @@ public:
 	void TeleopPeriodic()
 	{
 		m_drive->EmergencyResponseDrive();
-//		m_drive->ManualRobotDrive();
-//		m_shooter->Update();
+		m_drive->ManualRobotDrive();
+		m_shooter->Update();
 	}
 
 	void TestPeriodic()
