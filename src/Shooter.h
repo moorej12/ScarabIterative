@@ -29,6 +29,7 @@ class Shooter {
 		void Debug();
 		void PneumaticTest(bool status); //Test Code
 		void Init(); //Resets all values to zero
+		bool MaxHeightSensor();
 	private:
 		VictorSP *m_leftMotorController;
 		VictorSP *m_rightMotorController;

@@ -300,6 +300,9 @@ bool Shooter::BallLoaded() {
 	return m_ballLoaded;
 }
 
+bool Shooter::MaxHeightSensor(){
+		return m_maxAngleButton->Get();
+}
 //Old Code
 //void Shooter::Shoot() {
 //	if(BallLoaded()) {
