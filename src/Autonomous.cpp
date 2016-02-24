@@ -22,9 +22,8 @@ Autonomous::Autonomous(Drive *drive, Shooter *shooter, Arms *arms, AnalogGyro *x
 	m_autonomousType = -1;
 	m_stage = kAutonomousUNINITIALIZED;
 	m_flatTime = 0;
-	m_xAngle = m_xAxisGyro->GetAngle();
-	m_yAngle = m_yAxisGyro->GetAngle();
 	m_kP = 0.5;
+	m_desiredHeading = 0;
 }
 
 Autonomous::~Autonomous() {
@@ -156,7 +155,7 @@ void Autonomous::Correction() {
 //handles everything before moving up the ramp
 void Autonomous::BeginDrive() {
 
-	m_kP = ProportionalCurve();
+	ProportionalCurve();
 	m_drive->AutoRobotDrive(0.5, -m_xAngle * m_kP); // turn to correct heading
 
 	printf("/n The Y axis angle is: %f", m_yAngle);
@@ -186,4 +185,15 @@ void Autonomous::CheckCompletedDefense() {
 	else {
 		m_flatTime = 0;
 	}
+}
+
+ void Autonomous::ProportionalCurve() {
+
+	//x divided by the square root of x^2+1
+
+	double angle = m_xAxisGyro->GetAngle();
+	double error = angle - m_desiredHeading;
+
+	m_kP = (error)/(sqrt(error^2+STRETCH_CONSTANT));
+
 }

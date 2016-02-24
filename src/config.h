@@ -35,6 +35,7 @@
 #define AUTO_ERROR_MARGIN 0.3
 #define GYRO_DEADBAND 0.005
 #define RAMP_ANGLE 0 //Needs to be set
+#define STRETCH_CONSTANT 2000
 
 //Channels:
 
