@@ -150,9 +150,9 @@ public:
 		m_shooter->Update();
 
 		//Gyro angle testing block
-//		float angle = m_xAxisGyro->GetAngle();
-//		double angle2 = m_xAxisGyro->GetRate();
-//		printf("\n The value of the Y Gyro is: %f,  Rate is: %lf", angle, angle2);
+		float angle = m_xAxisGyro->GetAngle();
+		double angle2 = m_xAxisGyro->GetRate();
+		printf("\n The value of the Y Gyro is: %f,  Rate is: %lf", angle, angle2);
 
 	}
 

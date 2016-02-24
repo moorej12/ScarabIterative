@@ -89,7 +89,7 @@ void Shooter::Update() {
 	SmartDashboard::PutNumber("Potentiometer: ", m_shooterPotentiometer->Get());
 
 	//Test Code:
-	if(!m_maxAngleButton->Get() && m_joy2->GetY() < 0) {
+	if(!m_maxAngleButton->Get() && m_joy2->GetY() > 0) {
 		m_angleMotorController->Set(m_joy2->GetY() * 0);
 	}
 	else {

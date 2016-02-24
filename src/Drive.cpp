@@ -76,7 +76,7 @@ void Drive::EmergencyResponseDrive() {
 
 	if(emergencyValue >= BACK_TIP_ANGLE) {
 
-		m_drive->ArcadeDrive(0.3, 0, true);
+		m_drive->ArcadeDrive(0.5, 0, true);  //for real usage the first value must be much higher for effect
 
-		}
+	}
 }

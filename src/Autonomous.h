@@ -54,6 +54,7 @@ class Autonomous {
 		float m_yAngle;
 		float m_kP;
 		float m_desiredHeading;
+		Shooter *m_shooter;
 };
 
 
